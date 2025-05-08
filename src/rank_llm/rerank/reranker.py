@@ -10,7 +10,6 @@ from rank_llm.rerank import (
     get_openai_api_key,
 )
 from rank_llm.rerank.listwise import RankListwiseOSLLM, SafeGenai, SafeOpenai
-from rank_llm.rerank.listwise.lit5_reranker import LiT5DistillReranker
 from rank_llm.rerank.listwise.rank_fid import RankFiDDistill, RankFiDScore
 from rank_llm.rerank.pairwise.duot5 import DuoT5
 from rank_llm.rerank.pointwise.monot5 import MonoT5
@@ -393,8 +392,8 @@ class Reranker:
                 device,
             ) = extract_kwargs(keys_and_defaults, **kwargs)
 
-            model_coordinator = LiT5DistillReranker(
-                model_path=model_path,
+            model_coordinator = RankFiDDistill(
+                model=model_path,
                 context_size=context_size,
                 prompt_mode=prompt_mode,
                 num_few_shot_examples=num_few_shot_examples,
