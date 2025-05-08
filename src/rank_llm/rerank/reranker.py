@@ -10,6 +10,7 @@ from rank_llm.rerank import (
     get_openai_api_key,
 )
 from rank_llm.rerank.listwise import RankListwiseOSLLM, SafeGenai, SafeOpenai
+from rank_llm.rerank.listwise.lit5_reranker import LiT5DistillReranker
 from rank_llm.rerank.listwise.rank_fid import RankFiDDistill, RankFiDScore
 from rank_llm.rerank.pairwise.duot5 import DuoT5
 from rank_llm.rerank.pointwise.monot5 import MonoT5
@@ -202,12 +203,14 @@ class Reranker:
                 ("context_size", 4096),
                 ("prompt_mode", PromptMode.RANK_GPT),
                 ("num_few_shot_examples", 0),
+                ("few_shot_file", None),
                 ("window_size", 20),
             ]
             [
                 context_size,
                 prompt_mode,
                 num_few_shot_examples,
+                few_shot_file,
                 window_size,
             ] = extract_kwargs(keys_and_defaults, **kwargs)
 
@@ -218,6 +221,7 @@ class Reranker:
                 prompt_mode=prompt_mode,
                 window_size=window_size,
                 num_few_shot_examples=num_few_shot_examples,
+                few_shot_file=few_shot_file,
                 keys=openai_keys,
                 **(get_azure_openai_args() if use_azure_openai else {}),
             )
@@ -226,12 +230,14 @@ class Reranker:
                 ("context_size", 4096),
                 ("prompt_mode", PromptMode.RANK_GPT),
                 ("num_few_shot_examples", 0),
+                ("few_shot_file", None),
                 ("window_size", 20),
             ]
             [
                 context_size,
                 prompt_mode,
                 num_few_shot_examples,
+                few_shot_file,
                 window_size,
             ] = extract_kwargs(keys_and_defaults, **kwargs)
 
@@ -241,6 +247,7 @@ class Reranker:
                 context_size=context_size,
                 prompt_mode=prompt_mode,
                 num_few_shot_examples=num_few_shot_examples,
+                few_shot_file=few_shot_file,
                 window_size=window_size,
                 keys=genai_keys,
             )
@@ -258,6 +265,7 @@ class Reranker:
                 ("context_size", 4096),
                 ("prompt_mode", PromptMode.RANK_GPT),
                 ("num_few_shot_examples", 0),
+                ("few_shot_file", None),
                 ("device", "cuda"),
                 ("num_gpus", 1),
                 ("variable_passages", False),
@@ -272,6 +280,7 @@ class Reranker:
                 context_size,
                 prompt_mode,
                 num_few_shot_examples,
+                few_shot_file,
                 device,
                 num_gpus,
                 variable_passages,
@@ -293,6 +302,7 @@ class Reranker:
                 context_size=context_size,
                 prompt_mode=prompt_mode,
                 num_few_shot_examples=num_few_shot_examples,
+                few_shot_file=few_shot_file,
                 device=device,
                 num_gpus=num_gpus,
                 variable_passages=variable_passages,
@@ -314,10 +324,12 @@ class Reranker:
             keys_and_defaults = [
                 ("prompt_mode", PromptMode.MONOT5),
                 ("context_size", 512),
+                ("num_few_shot_examples", 0),
+                ("few_shot_file", None),
                 ("device", "cuda"),
                 ("batch_size", 64),
             ]
-            [prompt_mode, context_size, device, batch_size] = extract_kwargs(
+            [prompt_mode, context_size, num_few_shot_examples, few_shot_file, device, batch_size] = extract_kwargs(
                 keys_and_defaults, **kwargs
             )
 
@@ -329,6 +341,8 @@ class Reranker:
                 ),
                 prompt_mode=prompt_mode,
                 context_size=context_size,
+                num_few_shot_examples=num_few_shot_examples,
+                few_shot_file=few_shot_file,
                 device=device,
                 batch_size=batch_size,
             )
@@ -364,6 +378,7 @@ class Reranker:
                 ("context_size", 150),
                 ("prompt_mode", PromptMode.LiT5),
                 ("num_few_shot_examples", 0),
+                ("few_shot_file", None),
                 ("window_size", 20),
                 ("precision", "bfloat16"),
                 ("device", "cuda"),
@@ -372,16 +387,18 @@ class Reranker:
                 context_size,
                 prompt_mode,
                 num_few_shot_examples,
+                few_shot_file,
                 window_size,
                 precision,
                 device,
             ) = extract_kwargs(keys_and_defaults, **kwargs)
 
-            model_coordinator = RankFiDDistill(
-                model=model_path,
+            model_coordinator = LiT5DistillReranker(
+                model_path=model_path,
                 context_size=context_size,
                 prompt_mode=prompt_mode,
                 num_few_shot_examples=num_few_shot_examples,
+                few_shot_file=few_shot_file,
                 window_size=window_size,
                 precision=precision,
                 device=device,
@@ -392,6 +409,7 @@ class Reranker:
                 ("context_size", 150),
                 ("prompt_mode", PromptMode.LiT5),
                 ("num_few_shot_examples", 0),
+                ("few_shot_file", None),
                 ("window_size", 100),
                 ("precision", "bfloat16"),
                 ("device", "cuda"),
@@ -400,6 +418,7 @@ class Reranker:
                 context_size,
                 prompt_mode,
                 num_few_shot_examples,
+                few_shot_file,
                 window_size,
                 precision,
                 device,
@@ -410,6 +429,7 @@ class Reranker:
                 context_size=context_size,
                 prompt_mode=prompt_mode,
                 num_few_shot_examples=num_few_shot_examples,
+                few_shot_file=few_shot_file,
                 window_size=window_size,
                 precision=precision,
                 device=device,
@@ -425,6 +445,7 @@ class Reranker:
                 ("context_size", 4096),
                 ("prompt_mode", PromptMode.RANK_GPT),
                 ("num_few_shot_examples", 0),
+                ("few_shot_file", None),
                 ("device", "cuda"),
                 ("num_gpus", 1),
                 ("variable_passages", False),
@@ -437,6 +458,7 @@ class Reranker:
                 context_size,
                 prompt_mode,
                 num_few_shot_examples,
+                few_shot_file,
                 device,
                 num_gpus,
                 variable_passages,
@@ -452,6 +474,7 @@ class Reranker:
                 context_size=context_size,
                 prompt_mode=prompt_mode,
                 num_few_shot_examples=num_few_shot_examples,
+                few_shot_file=few_shot_file,
                 device=device,
                 num_gpus=num_gpus,
                 variable_passages=variable_passages,

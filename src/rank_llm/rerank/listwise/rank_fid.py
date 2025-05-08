@@ -34,6 +34,7 @@ class RankFiDDistill(ListwiseRankLLM):
         context_size: int = 150,
         prompt_mode: PromptMode = PromptMode.LiT5,  # Placeholder for actual mode
         num_few_shot_examples: int = 0,
+        few_shot_file: Optional[str] = None,
         window_size: int = 20,
         stride: int = 10,
         precision: str = "bfloat16",
@@ -47,6 +48,7 @@ class RankFiDDistill(ListwiseRankLLM):
             context_size=context_size,
             prompt_mode=prompt_mode,
             num_few_shot_examples=num_few_shot_examples,
+            few_shot_file=few_shot_file,
             window_size=window_size,
         )
         self._precision = precision
@@ -65,6 +67,11 @@ class RankFiDDistill(ListwiseRankLLM):
         self._output_token_estimate = None
 
         self._post_init()
+        
+        if num_few_shot_examples > 0:
+            if not few_shot_file:
+                raise ValueError("few_shot_examples_file must be provided when num_few_shot_examples > 0")
+            self._load_few_shot_examples(few_shot_file)
 
     def _run_llm_by_length_unified(
         self, batch_prompts: List[List[str]]
@@ -179,12 +186,12 @@ class RankFiDDistill(ListwiseRankLLM):
         )[0]
 
     def create_prompt(
-        self, result: Result, rank_start: int, rank_end: int
-    ) -> Tuple[List[Dict[str, str]], int]:
+            self, result: Result, rank_start: int, rank_end: int
+        ) -> Tuple[List[Dict[str, str]], int]:
         """
         Create a prompt based on the result and given ranking range.
         """
-
+    
         # For now, we concat the prompt, because it seems LiT5 is also concatting the stuff
         prompts = [
             {
@@ -198,7 +205,7 @@ class RankFiDDistill(ListwiseRankLLM):
             }
             for i in range(rank_start, rank_end)
         ]
-
+    
         return prompts, sum(self.get_num_tokens(prompt["text"]) for prompt in prompts)
 
     def get_num_tokens(self, prompt: Union[str, List[Dict[str, str]]]) -> int:

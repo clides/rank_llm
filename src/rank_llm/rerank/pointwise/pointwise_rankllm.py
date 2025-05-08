@@ -1,10 +1,11 @@
 import copy
 import logging
-import re
+import re, random
+import json
 from abc import ABC
 from datetime import datetime
 from functools import cmp_to_key
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Optional
 
 from ftfy import fix_text
 from tqdm import tqdm
@@ -34,6 +35,8 @@ class PointwiseRankLLM(RankLLM, ABC):
         model: str,
         context_size: int,
         prompt_mode: PromptMode,
+        num_few_shot_examples: int,
+        few_shot_file: Optional[str] = None,
         device: str = "cuda",
         filename: str = "",
         batch_size: int = 32,
@@ -42,6 +45,7 @@ class PointwiseRankLLM(RankLLM, ABC):
         self._device = device
         self._filename = filename
         self._batch_size = batch_size
+        self._num_few_shot_examples = num_few_shot_examples
 
     def rerank_batch(
         self,
@@ -204,3 +208,34 @@ class PointwiseRankLLM(RankLLM, ABC):
         # For Japanese should cut by character: content = content[:int(max_length)]
         content = " ".join(content.split()[: int(max_length)])
         return self._replace_number(content)
+
+    def _load_few_shot_examples(self, file_path: str):
+        try:
+            with open(file_path, "r") as json_file:
+                self._examples = list(json_file)[1:-1]
+        except FileNotFoundError:
+            raise ValueError(f"Few-shot examples file not found: {file_path}")
+        except json.JSONDecodeError:
+            raise ValueError(f"Invalid JSON format in few-shot examples file: {file_path}")
+            
+    def _build_pointwise_few_shot_examples(self):
+        examples = []
+        for _ in range(min(self._num_few_shot_examples, len(self._examples))):
+            try:
+                ex = random.choice(self._examples)
+                obj = json.loads(ex)
+                
+                # assume each value to conversation key have at least 2 values (user: query + doc, assistant: score of relevance)
+                parts = obj["conversations"][0]["value"].split(" Document: ")
+                example_query = parts[0].replace("Query", "").strip()
+                example_doc = parts[1].split(" Relevant: ")[0].strip()
+                example_relevance = obj["conversations"][1]["value"].strip()
+                
+                examples.append(
+                    f"Query: {example_query} Document: {example_doc}\n Relevant: {example_relevance}"
+                )
+            except (json.JSONDecodeError, KeyError, IndexError) as e:
+                logger.warning(f"Skipping malformed few-shot example: {str(e)}")
+                continue
+                
+        return "\n\n".join(examples) + "\n\n" if examples else ""

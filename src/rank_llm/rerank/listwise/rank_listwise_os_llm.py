@@ -38,11 +38,12 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         context_size: int = 4096,
         prompt_mode: PromptMode = PromptMode.RANK_GPT,
         num_few_shot_examples: int = 0,
+        few_shot_file: Optional[str] = None,
         device: str = "cuda",
         num_gpus: int = 1,
         variable_passages: bool = False,
         window_size: int = 20,
-        system_message: str = None,
+        system_message: Optional[str] = None,
         use_logits: bool = False,
         use_alpha: bool = False,
         sglang_batched: bool = False,
@@ -60,6 +61,8 @@ class RankListwiseOSLLM(ListwiseRankLLM):
          - num_few_shot_examples (int, optional): Number of few-shot learning examples to include in the prompt, allowing for
          the integration of example-based learning to improve model performance. Defaults to 0, indicating no few-shot examples
          by default.
+         - few_shot_file (str, optional): Path to JSONL file containing few-shot examples. Required if num_few_shot_examples > 0. 
+         File should contain one JSON object per line with "conversations" field containing prompt/response pairs.
          - device (str, optional): Specifies the device for model computation ('cuda' for GPU or 'cpu'). Defaults to 'cuda'.
          - num_gpus (int, optional): Number of GPUs to use for model loading and inference. Defaults to 1.
          - variable_passages (bool, optional): Indicates whether the number of passages to rank can vary. Defaults to False.
@@ -74,6 +77,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
          Raises:
          - AssertionError: If CUDA is specified as the device but is not available on the system.
          - ValueError: If an unsupported prompt mode is provided.
+         - ValueError: If num_few_shot_examples > 0 but no valid file path is provided
 
          Note:
          - This class is operates given scenarios where listwise ranking is required, with support for dynamic
@@ -87,6 +91,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
             prompt_mode,
             num_few_shot_examples,
             window_size,
+            few_shot_file,
             use_alpha=use_alpha,
         )
         self._device = device
@@ -99,8 +104,10 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         self._use_logits = use_logits
 
         if num_few_shot_examples > 0:
-            with open("data/output_v2_aug_filtered.jsonl", "r") as json_file:
-                self._examples = list(json_file)[1:-1]
+            if not few_shot_file:
+                raise ValueError("few_shot_examples_file must be provided when num_few_shot_examples > 0")
+            self._load_few_shot_examples(few_shot_file)
+            
         if self._device == "cuda":
             assert torch.cuda.is_available()
 
@@ -325,27 +332,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         else:
             example_ordering = "[2] > [1]" if self._variable_passages else "[4] > [2]"
         return f"Search Query: {query}.\nRank the {num} passages above based on their relevance to the search query. All the passages should be included and listed using identifiers, in descending order of relevance. The output format should be [] > [], e.g., {example_ordering}, Only respond with the ranking results, do not say any word or explain."
-
-    def _add_few_shot_examples(self, conv):
-        for _ in range(self._num_few_shot_examples):
-            ex = random.choice(self._examples)
-            obj = json.loads(ex)
-            prompt = obj["conversations"][0]["value"]
-            response = obj["conversations"][1]["value"]
-            conv.append_message(conv.roles[0], prompt)
-            conv.append_message(conv.roles[1], response)
-        return conv
-
-    def _add_few_shot_examples_messages(self, messages):
-        for _ in range(self._num_few_shot_examples):
-            ex = random.choice(self._examples)
-            obj = json.loads(ex)
-            prompt = obj["conversations"][0]["value"]
-            response = obj["conversations"][1]["value"]
-            messages.append({"role": "user", "content": prompt})
-            messages.append({"role": "assistant", "content": response})
-        return messages
-
+        
     def create_prompt(
         self, result: Result, rank_start: int, rank_end: int
     ) -> Tuple[str, int]:
@@ -353,6 +340,9 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         query = self._replace_number(query)
         num = len(result.candidates[rank_start:rank_end])
         max_length = 300 * (20 / (rank_end - rank_start))
+        
+        if self._model
+        
         while True:
             messages = list()
             if self._system_message:
@@ -372,7 +362,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
 
             input_context += self._add_post_prompt(query, num)
             messages.append({"role": "user", "content": input_context})
-
+            
             prompt = self._tokenizer.apply_chat_template(
                 messages, tokenize=False, add_generation_prompt=True
             )

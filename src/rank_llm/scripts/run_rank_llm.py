@@ -27,6 +27,7 @@ def main(args):
     retrieval_method = args.retrieval_method
     prompt_mode = args.prompt_mode
     num_few_shot_examples = args.num_few_shot_examples
+    few_shot_file = args.few_shot_file
     shuffle_candidates = args.shuffle_candidates
     print_prompts_responses = args.print_prompts_responses
     num_few_shot_examples = args.num_few_shot_examples
@@ -41,6 +42,13 @@ def main(args):
     use_alpha = args.use_alpha
     sglang_batched = args.sglang_batched
     tensorrt_batched = args.tensorrt_batched
+    
+    if torch.cuda.is_available():
+        torch.cuda.set_device(args.gpu_id)
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
+        device = "cuda"
+    else:
+        device = "cpu"
 
     _ = retrieve_and_rerank(
         model_path=model_path,
@@ -56,6 +64,7 @@ def main(args):
         num_gpus=num_gpus,
         prompt_mode=prompt_mode,
         num_few_shot_examples=num_few_shot_examples,
+        few_shot_file=few_shot_file,
         shuffle_candidates=shuffle_candidates,
         print_prompts_responses=print_prompts_responses,
         use_azure_openai=use_azure_openai,
@@ -148,6 +157,13 @@ if __name__ == "__main__":
         help="number of in context examples to provide",
     )
     parser.add_argument(
+        "--few_shot_file",
+        type=str,
+        required=False,
+        default=None,
+        help="path to JSONL file containing few-shot examples."
+    )
+    parser.add_argument(
         "--variable_passages",
         action="store_true",
         help="whether the model can account for variable number of passages in input",
@@ -187,6 +203,12 @@ if __name__ == "__main__":
         "--use_alpha",
         action="store_true",
         help="whether to use alphabetical identifers instead of numerical. Recommended when use_logits is True",
+    )
+    parser.add_argument(
+        "--gpu_id",
+        type=int,
+        default=0,  # Default to GPU 0 if not specified
+        help="ID of the GPU to use (e.g., 0, 1, 2, etc.)",
     )
     infer_backend_group.add_argument(
         "--sglang_batched",
