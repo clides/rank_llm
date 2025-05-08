@@ -341,8 +341,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         num = len(result.candidates[rank_start:rank_end])
         max_length = 300 * (20 / (rank_end - rank_start))
         
-        if self._model
-        
         while True:
             messages = list()
             if self._system_message:
