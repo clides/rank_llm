@@ -480,8 +480,9 @@ class ListwiseRankLLM(RankLLM, ABC):
         return conv
 
     def _add_few_shot_examples_messages(self, messages):
-        for _ in range(min(self._num_few_shot_examples, len(self._examples))):
-            ex = random.choice(self._examples)
-            for turn in ex["conversations"]:
-                messages.append({"role": turn["role"], "content": turn["value"]})
-        return messages
+        if self._num_few_shot_examples > 0 and hasattr(self, "_examples"):
+            for _ in range(min(self._num_few_shot_examples, len(self._examples))):
+                ex = random.choice(self._examples)
+                for turn in ex["conversations"]:
+                    messages.append({"role": turn["role"], "content": turn["value"]})
+            return messages
