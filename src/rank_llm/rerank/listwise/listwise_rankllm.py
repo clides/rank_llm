@@ -482,8 +482,8 @@ class ListwiseRankLLM(RankLLM, ABC):
     def _add_few_shot_examples_messages(self, messages):
         if self._num_few_shot_examples > 0 and hasattr(self, "_examples"):
             messages.append({
-                "role": "system",
-                "content": "Learn from these examples on how the passages are ranked based on their relevance to the search query."
+                "role": "user",  # Key change: user instead of system
+                "content": "Learn from these ranking examples:"
             })
             
             for _ in range(min(self._num_few_shot_examples, len(self._examples))):

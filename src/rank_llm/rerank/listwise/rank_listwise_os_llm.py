@@ -343,9 +343,10 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         
         while True:
             messages = list()
-            messages = self._add_few_shot_examples_messages(messages)
             if self._system_message:
-                messages.append({"role": "system", "content": self._system_message})
+                messages.append({"role": "system", "content": self._system_message})                
+            messages = self._add_few_shot_examples_messages(messages)
+            
             prefix = self._add_prefix_prompt(query, num)
             rank = 0
             input_context = f"{prefix}\n"
@@ -376,7 +377,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     (
                         num_tokens
                         - self.max_tokens()
-                        + self.num_output_tokens(rank_end - rank_start, self._use_alpha)
+                        + self.num_output_tokens(rank_end - rank_start)
                     )
                     // ((rank_end - rank_start) * 4),
                 )

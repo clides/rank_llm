@@ -88,25 +88,25 @@ conditions:
       - topic_key: dl23
         eval_key: dl23-passage
         scores:
-          - nDCG@10: 0.4419
+          - nDCG@10: 0.4423
   - name: firstmistral
     display: "First Mistral"
     display-html: "First Mistral"
     display-row: "[1]"
-    command: python src/rank_llm/scripts/run_rank_llm.py  --model_path=castorini/first_mistral --top_k_candidates=100 --dataset=$topics --retrieval_method=bm25 --prompt_mode=rank_GPT  --context_size=4096 --variable_passages
+    command: python src/rank_llm/scripts/run_rank_llm.py  --model_path=castorini/first_mistral --top_k_candidates=100 --dataset=$topics --retrieval_method=bm25 --prompt_mode=rank_GPT  --context_size=4096 --variable_passages --use_alpha --use_logits
     topics:
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - nDCG@10: 0.6854
+          - nDCG@10: 0.6849
       - topic_key: dl22
         eval_key: dl22-passage
         scores:
-          - nDCG@10: 0.4889
+          - nDCG@10: 0.4928
       - topic_key: dl23
         eval_key: dl23-passage
         scores:
-          - nDCG@10: 0.4427
+          - nDCG@10: 0.4445
   - name: qwen_2.5_7b_inst
     display: "Qwen 2.5 7B Instruct"
     display-html: "Qwen 2.5 7B Instruct"
@@ -116,15 +116,15 @@ conditions:
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - nDCG@10: 0.6465
+          - nDCG@10: 0.6451
       - topic_key: dl22
         eval_key: dl22-passage
         scores:
-          - nDCG@10: 0.4261
+          - nDCG@10: 0.4264
       - topic_key: dl23
         eval_key: dl23-passage
         scores:
-          - nDCG@10: 0.3889
+          - nDCG@10: 0.4061
   - name: llama_3.1_8b_inst
     display: "LLaMA 3.1 8B Instruct"
     display-html: "LLaMA 3.1 8B Instruct"
@@ -134,15 +134,15 @@ conditions:
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - nDCG@10: 0.6573
+          - nDCG@10: 0.6394
       - topic_key: dl22
         eval_key: dl22-passage
         scores:
-          - nDCG@10: 0.4402
+          - nDCG@10: 0.4469
       - topic_key: dl23
         eval_key: dl23-passage
         scores:
-          - nDCG@10: 0.4018
+          - nDCG@10: 0.4109
   - name: gemini_2.0_flash
     display: "Gemini 2.0 Flash"
     display-html: "Gemini 2.0 Flash"
@@ -170,7 +170,7 @@ conditions:
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - nDCG@10: 0.6892
+          - nDCG@10: 0.6830
       - topic_key: dl22
         eval_key: dl22-passage
         scores:
