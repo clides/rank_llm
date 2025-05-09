@@ -486,3 +486,4 @@ class ListwiseRankLLM(RankLLM, ABC):
                 for turn in ex["conversations"]:
                     messages.append({"role": turn["role"], "content": turn["value"]})
             return messages
+        return messages
