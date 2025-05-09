@@ -91,14 +91,13 @@ class MonoT5(PointwiseRankLLM):
     def create_prompt(self, result: Result, index: int) -> Tuple[str, int]:
         query = result.query.text
         
-        reserved_for_output = 32 # might need to change depending on what the actual output look like
+        reserved_for_output = 64 # might need to change depending on what the actual output look like
         query_tokens = self.get_num_tokens(f"Query: {query} Document:  Relevant: ")
         
         few_shot_section = ""
         few_shot_tokens = 0
-        if self._num_few_shot_examples > 0 and hasattr(self, '_examples'):
-            few_shot_section = self._build_pointwise_few_shot_examples()
-            few_shot_tokens = self.get_num_tokens(few_shot_section)
+        few_shot_section = self._build_pointwise_few_shot_examples()
+        few_shot_tokens = self.get_num_tokens(few_shot_section)
         
         max_doc_tokens = self._context_size - few_shot_tokens - query_tokens - reserved_for_output
         

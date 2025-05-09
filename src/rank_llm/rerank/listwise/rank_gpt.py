@@ -26,9 +26,9 @@ class SafeOpenai(ListwiseRankLLM):
         keys=None,
         key_start_id=None,
         proxy=None,
-        api_type: str = None,
-        api_base: str = None,
-        api_version: str = None,
+        api_type: Optional[str] = None,
+        api_base: Optional[str] = None,
+        api_version: Optional[str] = None,
     ) -> None:
         """
         Creates instance of the SafeOpenai class, a specialized version of RankLLM designed for safely handling OpenAI API calls with
@@ -58,7 +58,7 @@ class SafeOpenai(ListwiseRankLLM):
         - Azure AI integration is depends on the presence of `api_type`, `api_base`, and `api_version`.
         """
         super().__init__(
-            model, context_size, prompt_mode, num_few_shot_examples, few_shot_file, window_size
+            model, context_size, prompt_mode, num_few_shot_examples, window_size, few_shot_file
         )
         if isinstance(keys, str):
             keys = [keys]
@@ -274,12 +274,15 @@ class SafeOpenai(ListwiseRankLLM):
 
         max_length = 300 * (self._window_size / (rank_end - rank_start))
         while True:
-            messages = (
+            prefix_messasge = (
                 self._get_prefix_for_rank_gpt_apeer_prompt(query, num)
                 if self._prompt_mode == PromptMode.RANK_GPT_APEER
                 else self._get_prefix_for_rank_gpt_prompt(query, num)
             )
-            messages = self._add_few_shot_examples_messages(messages)
+            
+            prefix_message_system = [prefix_messasge[0]]
+            messages = self._add_few_shot_examples_messages(prefix_message_system)
+            messages.append(prefix_messasge[1])
             
             rank = 0
             for cand in result.candidates[rank_start:rank_end]:

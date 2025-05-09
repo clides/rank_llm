@@ -179,17 +179,15 @@ class SafeGenai(ListwiseRankLLM):
             examples_text = []
             for _ in range(min(self._num_few_shot_examples, len(self._examples))):
                 ex = random.choice(self._examples)
-                obj = json.loads(ex)
                 
-                if "conversations" in obj and len(obj) >= 2:
+                if "conversations" in ex and len(ex) >= 2:
                     examples_text.append(
-                        f"Example Input:\n{obj['conversations'][0]['value']}\n"
-                        f"Example Output:\n{obj['conversations'][1]['value']}"
+                        f"Example Input:\n{ex['conversations'][0]['value'].strip()}\n"
+                        f"Example Output:\n{ex['conversations'][1]['value'].strip()}"
                     )
-            if examples_text:
-                return f"{text_prompt}\n\nExamples:\n" + "\n\n".join(examples_text)
             
-            return text_prompt
+            final_text = "In response to the query: [querystart] {QUERY} [queryend], rank the passages. Ignore aspects like length, complexity, or writing style, and concentrate on passages that provide a comprehensive understanding of the query. Take into account any inaccuracies or vagueness in the passages when determining their relevance." + f"Examples:\n" + "\n\n".join(examples_text)
+            return final_text if examples_text else text_prompt
         else:
             return text_prompt
         

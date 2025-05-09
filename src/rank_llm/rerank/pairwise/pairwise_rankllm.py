@@ -193,27 +193,30 @@ class PairwiseRankLLM(RankLLM, ABC):
     def _load_few_shot_examples(self, file_path: str):
         try:
             with open(file_path, "r") as json_file:
-                self._examples = list(json_file)[1:-1]
+                self._examples = json.load(json_file)
         except FileNotFoundError:
             raise ValueError(f"Few-shot examples file not found: {file_path}")
         except json.JSONDecodeError:
             raise ValueError(f"Invalid JSON format in few-shot examples file: {file_path}")
     
     def _build_pairwise_few_shot_examples(self) -> str:
-        examples = []
-        for _ in range(min(self._num_few_shot_examples, len(self._examples))):
-            ex = random.choice(self._examples)
-            try:
-                obj = json.loads(ex) # assume each value for conversation contain 2 values (user query + docs, asssistant response)
-                example_query = obj["conversations"][0]["value"].split("Query: ")[-1].split("Document0: ")[0].strip()
-                example_doc0 = obj["conversations"][0]["value"].split(" Document0: ")[-1].split("Document1: ")[0].strip()
-                example_doc1 = obj["conversations"][0]["value"].split(" Document1: ")[-1].strip()
-                example_relevance = obj["conversations"][1]["value"].strip()
-                
-                examples.append(
-                    f"Query: {example_query} Document0: {example_doc0} Document1: {example_doc1} Relevant: {example_relevance}"
-                )
-            except (json.JSONDecodeError, KeyError, IndexError):
-                continue
-        
-        return "\n\n".join(examples) + "\n\n" if examples else ""
+        if self._num_few_shot_examples > 0 and hasattr(self, "_examples"):
+            examples = []
+            for _ in range(min(self._num_few_shot_examples, len(self._examples))):
+                ex = random.choice(self._examples)
+                try:
+                    # assume each value for conversation contain 2 values (user query + docs, asssistant response)
+                    example_query = ex["conversations"][0]["value"].split("Query: ")[-1].split("Document0: ")[0].strip()
+                    example_doc0 = ex["conversations"][0]["value"].split(" Document0: ")[-1].split("Document1: ")[0].strip()
+                    example_doc1 = ex["conversations"][0]["value"].split(" Document1: ")[-1].strip()
+                    example_relevance = ex["conversations"][1]["value"].strip()
+                    
+                    examples.append(
+                        f"Query: {example_query} Document0: {example_doc0} Document1: {example_doc1} Relevant: {example_relevance}"
+                    )
+                except (json.JSONDecodeError, KeyError, IndexError):
+                    continue
+            
+            return "\n\n".join(examples) + "\n\n" if examples else ""
+        else:
+            return ""
