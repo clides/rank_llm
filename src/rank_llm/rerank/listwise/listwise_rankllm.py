@@ -483,7 +483,7 @@ class ListwiseRankLLM(RankLLM, ABC):
         if self._num_few_shot_examples > 0 and hasattr(self, "_examples"):
             messages.append({
                 "role": "system",
-                "content": "Learn from these examples on how the passages are ranked based on their relevance to the search query. All the passages should be included and listed using identifiers, in descending order of relevance. The output format should be [] > [], e.g., [3] > [1] > [2]. Only respond with the ranking results, do not say any word or explain."
+                "content": "Learn from these examples on how the passages are ranked based on their relevance to the search query."
             })
             
             for _ in range(min(self._num_few_shot_examples, len(self._examples))):
