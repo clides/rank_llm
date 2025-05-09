@@ -192,11 +192,11 @@ conditions:
       - topic_key: dl19
         eval_key: dl19-passage
         scores:
-          - nDCG@10: 0.7335
+          - nDCG@10: 0.7278
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - nDCG@10: 0.6925
+          - nDCG@10: 0.6912
   - name: lrl
     display: "LRL (gpt-4o-mini)"
     display-html: "LRL (gpt-4o-mini)"

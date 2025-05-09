@@ -174,11 +174,11 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-passage
         scores:
-          - nDCG@10: 0.4884
+          - nDCG@10: 0.4947
       - topic_key: dl23
         eval_key: dl23-passage
         scores:
-          - nDCG@10: 0.4666
+          - nDCG@10: 0.4676
   - name: rankgptapeer
     display: "RankGPTAPEER (gpt-4o-mini)"
     display-html: "RankGPTAPEER (gpt-4o-mini)"
@@ -188,11 +188,11 @@ conditions:
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - nDCG@10: 0.6750
+          - nDCG@10: 0.6720
       - topic_key: dl22
         eval_key: dl22-passage
         scores:
-          - nDCG@10: 0.4786
+          - nDCG@10: 0.4863
       - topic_key: dl23
         eval_key: dl23-passage
         scores:
