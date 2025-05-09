@@ -463,7 +463,7 @@ class ListwiseRankLLM(RankLLM, ABC):
     def _load_few_shot_examples(self, file_path: str):
         try:
             with open(file_path, "r") as json_file:
-                self._examples = list(json_file)[1:-1]
+                self._examples = json.load(json_file)
         except FileNotFoundError:
             raise ValueError(f"Few-shot examples file not found: {file_path}")
         except json.JSONDecodeError:
@@ -482,7 +482,6 @@ class ListwiseRankLLM(RankLLM, ABC):
     def _add_few_shot_examples_messages(self, messages):
         for _ in range(min(self._num_few_shot_examples, len(self._examples))):
             ex = random.choice(self._examples)
-            obj = json.loads(ex)
-            for turn in obj["conversations"]:
+            for turn in ex["conversations"]:
                 messages.append({"role": turn["role"], "content": turn["value"]})
         return messages
