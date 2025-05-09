@@ -481,20 +481,11 @@ class ListwiseRankLLM(RankLLM, ABC):
 
     def _add_few_shot_examples_messages(self, messages):
         if self._num_few_shot_examples > 0 and hasattr(self, "_examples"):
-            messages.append({
-                "role": "user",  # Key change: user instead of system
-                "content": "Learn from these ranking examples:"
-            })
             
             for _ in range(min(self._num_few_shot_examples, len(self._examples))):
                 ex = random.choice(self._examples)
                 for turn in ex["conversations"]:
                     messages.append({"role": turn["role"], "content": turn["value"]})
-                    
-            messages.append({
-                "role": "system",
-                "content": "Now apply these principles to rank the following:"
-            })
             return messages
             
         return messages
