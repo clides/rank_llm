@@ -364,7 +364,7 @@ class ListwiseRankLLM(RankLLM, ABC):
         new_response = ""
         
         supersub_script_map = str.maketrans(
-                "⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳❶❷❸❹❺❻❼❽❾❿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴０１２３４５６７８９",
+                "⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉①②③④⑤⑥⑦⑧⑨❶❷❸❹❺❻❼❽❾０１２３４５６７８９",
                 "0123456789012345678912345678912345678912345678901234567890123456789"
             )
         response = response.translate(supersub_script_map)
