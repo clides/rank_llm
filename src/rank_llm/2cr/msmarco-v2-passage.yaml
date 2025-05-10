@@ -165,7 +165,7 @@ conditions:
     display: "RankGPT (gpt-4o-mini)"
     display-html: "RankGPT (gpt-4o-mini)"
     display-row: "[1]"
-    command: python src/rank_llm/scripts/run_rank_llm.py  --model_path=gpt-4o-mini --top_k_candidates=100 --dataset=$topics --retrieval_method=bm25 --prompt_mode=rank_GPT --context_size=4096 --variable_passages
+    command: python src/rank_llm/scripts/run_rank_llm.py  --model_path=gpt-4o-mini --top_k_candidates=100 --dataset=$topics --retrieval_method=bm25 --prompt_mode=rank_GPT --context_size=4096 --variable_passages --use_azure_openai
     topics:
       - topic_key: dl21
         eval_key: dl21-passage
@@ -183,7 +183,7 @@ conditions:
     display: "RankGPTAPEER (gpt-4o-mini)"
     display-html: "RankGPTAPEER (gpt-4o-mini)"
     display-row: "[1]"
-    command: python src/rank_llm/scripts/run_rank_llm.py  --model_path=gpt-4o-mini --top_k_candidates=100 --dataset=$topics --retrieval_method=bm25 --prompt_mode=rank_GPT_APEER --context_size=4096 --variable_passages
+    command: python src/rank_llm/scripts/run_rank_llm.py  --model_path=gpt-4o-mini --top_k_candidates=100 --dataset=$topics --retrieval_method=bm25 --prompt_mode=rank_GPT_APEER --context_size=4096 --variable_passages --use_azure_openai
     topics:
       - topic_key: dl21
         eval_key: dl21-passage
@@ -196,21 +196,21 @@ conditions:
       - topic_key: dl23
         eval_key: dl23-passage
         scores:
-          - nDCG@10: 0.4444
+          - nDCG@10: 0.4442
   - name: lrl
     display: "LRL (gpt-4o-mini)"
     display-html: "LRL (gpt-4o-mini)"
     display-row: "[1]"
-    command: python src/rank_llm/scripts/run_rank_llm.py  --model_path=gpt-4o-mini --top_k_candidates=100 --dataset=$topics --retrieval_method=bm25 --prompt_mode=LRL --context_size=4096 --variable_passages
+    command: python src/rank_llm/scripts/run_rank_llm.py  --model_path=gpt-4o-mini --top_k_candidates=100 --dataset=$topics --retrieval_method=bm25 --prompt_mode=LRL --context_size=4096 --variable_passages --use_azure_openai
     topics:
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - nDCG@10: 0.6709
+          - nDCG@10: 0.6558
       - topic_key: dl22
         eval_key: dl22-passage
         scores:
-          - nDCG@10: 0.4729
+          - nDCG@10: 0.4740
       - topic_key: dl23
         eval_key: dl23-passage
         scores:

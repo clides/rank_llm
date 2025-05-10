@@ -206,8 +206,8 @@ conditions:
       - topic_key: dl19
         eval_key: dl19-passage
         scores:
-          - nDCG@10: 0.7129
+          - nDCG@10: 0.7149
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - nDCG@10: 0.6564
+          - nDCG@10: 0.6722
