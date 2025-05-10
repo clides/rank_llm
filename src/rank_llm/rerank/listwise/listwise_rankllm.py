@@ -363,7 +363,10 @@ class ListwiseRankLLM(RankLLM, ABC):
     def _clean_response(self, response: str) -> str:
         new_response = ""
         
-        supersub_script_map = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉", "01234567890123456789")
+        supersub_script_map = str.maketrans(
+                "⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳❶❷❸❹❺❻❼❽❾❿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴０１２３４５６７８９",
+                "0123456789012345678912345678912345678912345678901234567890123456789"
+            )
         response = response.translate(supersub_script_map)
         
         if self._use_alpha:
@@ -377,12 +380,6 @@ class ListwiseRankLLM(RankLLM, ABC):
             for c in response:
                 if not c.isdigit():
                     new_response += " "
-                elif 9312 <= ord(c) <= 9331:  # ①-⑳ range
-                    num = ord(c) - 9311
-                    new_response += str(num)
-                elif 9450 <= ord(c) <= 9459:  # ❶-❿ range
-                    num = ord(c) - 9449
-                    new_response += str(num)
                 else:
                     new_response += c
             new_response = new_response.strip()
