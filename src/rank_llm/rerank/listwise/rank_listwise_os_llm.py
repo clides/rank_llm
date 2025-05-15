@@ -7,7 +7,6 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Dict, List, Optional, Tuple
 
 import torch
-import vllm
 from ftfy import fix_text
 from tqdm import tqdm
 
@@ -15,6 +14,13 @@ from rank_llm.data import Request, Result
 from rank_llm.rerank import PromptMode
 
 from .listwise_rankllm import ListwiseRankLLM
+
+import vllm
+try:
+    from vllm import LLM, SamplingParams
+except:
+    LLM = None
+    SamplingParams = None
 
 try:
     import sglang
@@ -102,6 +108,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         self._system_message = system_message
         self._output_token_estimate = None
         self._use_logits = use_logits
+        self._num_gpus = num_gpus
 
         if num_few_shot_examples > 0:
             if not few_shot_file:
@@ -109,13 +116,12 @@ class RankListwiseOSLLM(ListwiseRankLLM):
             self._load_few_shot_examples(few_shot_file)
             
         if self._device == "cuda":
-            assert torch.cuda.is_available()
-
+            assert torch.cuda.is_available() and torch.cuda.device_count() >= num_gpus
         if prompt_mode != PromptMode.RANK_GPT:
             raise ValueError(
                 f"Unsupported prompt mode: {prompt_mode}. The only prompt mode currently supported is a slight variation of {PromptMode.RANK_GPT} prompt."
             )
-
+            
         if sglang_batched:
             if Engine is None:
                 raise ImportError(
@@ -138,15 +144,41 @@ class RankListwiseOSLLM(ListwiseRankLLM):
             self._llm = TRTLLM(model=model, build_config=build_config)
             self._tokenizer = self._llm.tokenizer
         else:
-            self._llm = vllm.LLM(
-                model,
-                download_dir=os.getenv("HF_HOME"),
-                enforce_eager=False,
-                max_logprobs=30,
-                tensor_parallel_size=num_gpus,
-                gpu_memory_utilization=0.90,
-            )
-            self._tokenizer = self._llm.get_tokenizer()
+            if LLM is None:
+                raise ImportError(
+                    "Please install rank-llm with `pip install rank-llm[vllm]` to use batch inference."
+                )
+            else:
+                if model in ["mistralai/Mistral-Large-Instruct-2407"]:
+                    ignore_patterns = ["*consolidated*"]
+                else:
+                    ignore_patterns = []
+                    
+                if os.getenv("HF_HOME") == None:
+                    os.environ["HF_HOME"] = "/store2/scratch/llms/model_cache"
+                if "rank_zephyr" in model or "qwen" in model.lower():
+                    self._llm = LLM(
+                        model,
+                        download_dir=os.getenv("HF_HOME") + "/hub",
+                        enforce_eager=False,
+                        max_logprobs=30,
+                        tensor_parallel_size=num_gpus,
+                        gpu_memory_utilization=0.90,
+                        ignore_patterns=ignore_patterns,
+                        trust_remote_code=True
+                    )
+                    self._tokenizer = self._llm.get_tokenizer()
+                else:
+                    self._llm = LLM(
+                        model,
+                        download_dir=os.getenv("HF_HOME"),
+                        enforce_eager=False,
+                        max_logprobs=30,
+                        tensor_parallel_size=num_gpus,
+                        gpu_memory_utilization=0.90,
+                        ignore_patterns=ignore_patterns,
+                    )
+                self._tokenizer = self._llm.get_tokenizer()
 
     def rerank_batch(
         self,
@@ -227,21 +259,27 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         prompts: List[str | List[Dict[str, str]]],
         current_window_size: Optional[int] = None,
     ) -> List[Tuple[str, int]]:
+        if SamplingParams is None:
+            raise ImportError(
+                "Please install rank-llm with `pip install rank-llm[vllm]` to use batch inference."
+            )
+        
         if current_window_size is None:
             current_window_size = self._window_size
 
-        if isinstance(self._llm, vllm.LLM):
+        if isinstance(self._llm, LLM):
             logger.info(f"VLLM Generating!")
+            logger.info(f"Using {self._num_gpus} GPUs: {torch.cuda.device_count()} available.")
 
             if self._use_logits:
-                params = vllm.SamplingParams(
+                params = SamplingParams(
                     min_tokens=2, max_tokens=2, temperature=0.0, logprobs=30
                 )
                 outputs = self._llm.generate(prompts, sampling_params=params)
                 arr = [self._get_logits_single_digit(output) for output in outputs]
                 return [(s, len(s)) for s, __ in arr]
             else:
-                sampling_params = vllm.SamplingParams(
+                sampling_params = SamplingParams(
                     temperature=0.0,
                     max_tokens=self.num_output_tokens(current_window_size),
                     min_tokens=self.num_output_tokens(current_window_size),
