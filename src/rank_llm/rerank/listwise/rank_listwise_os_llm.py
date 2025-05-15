@@ -167,10 +167,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                         tensor_parallel_size=num_gpus,
                         gpu_memory_utilization=0.90,
                         ignore_patterns=ignore_patterns,
-                        chat_template_kwargs={
-                            "enable_thinking": self._enable_thinking,
-                        }
-
                     )
                 else:
                     self._llm = LLM(
@@ -303,7 +299,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     max_tokens=self.num_output_tokens(current_window_size),
                     min_tokens=self.num_output_tokens(current_window_size),
                 )
-                outputs = self._llm.generate(prompts, sampling_params)
+                outputs = self._llm.generate(prompts, sampling_params, chat_template_kwargs={"enable_thinking": False})
                 return [
                     (output.outputs[0].text, len(output.outputs[0].token_ids))
                     for output in outputs
