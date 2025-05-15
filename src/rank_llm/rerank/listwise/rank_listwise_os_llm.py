@@ -165,7 +165,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                         tensor_parallel_size=num_gpus,
                         gpu_memory_utilization=0.90,
                         ignore_patterns=ignore_patterns,
-                        trust_remote_code=True
                     )
                     self._tokenizer = self._llm.get_tokenizer()
                 else:
