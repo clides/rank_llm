@@ -54,7 +54,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         use_alpha: bool = False,
         sglang_batched: bool = False,
         tensorrt_batched: bool = False,
-        enable_thinking: bool = True,
+        enable_trhinking: bool = True,
     ) -> None:
         """
          Creates instance of the RankListwiseOSLLM class, an extension of RankLLM designed for performing listwise ranking of passages using a specified language model. Advanced configurations are supported such as GPU acceleration, variable passage handling, and custom system messages for generating prompts.
@@ -167,6 +167,10 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                         tensor_parallel_size=num_gpus,
                         gpu_memory_utilization=0.90,
                         ignore_patterns=ignore_patterns,
+                        chat_template_kwargs={
+                            "enable_thinking": self._enable_thinking,
+                        }
+
                     )
                 else:
                     self._llm = LLM(
@@ -296,7 +300,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     top_p=0.8,
                     top_k=20,
                     min_p=0,
-                    repetition_penalty=1.1,
                     max_tokens=self.num_output_tokens(current_window_size),
                     min_tokens=self.num_output_tokens(current_window_size),
                 )
@@ -385,7 +388,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
             example_ordering = "[B] > [A]" if self._variable_passages else "[D] > [B]"
         else:
             example_ordering = "[2] > [1]" if self._variable_passages else "[4] > [2]"
-        return f"Search Query: {query}.\nRank the {num} passages above based on their relevance to the search query. All the passages should be included and listed using identifiers, in descending order of relevance. The output format should be [] > [], e.g., {example_ordering}, Only respond with the ranking results, do not say any word or explain."
+        return f"Search Query: {query}.\nRank the {num} passages above based on their relevance to the search query. All the passages should be included and listed using identifiers, in descending order of relevance. The output format should be [] > [], e.g., {example_ordering}, Answer concisely and directly and only respond with the ranking results, do not say any word or explain."
         
     def create_prompt(
         self, result: Result, rank_start: int, rank_end: int
