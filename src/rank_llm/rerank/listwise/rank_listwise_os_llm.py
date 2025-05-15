@@ -54,7 +54,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         use_alpha: bool = False,
         sglang_batched: bool = False,
         tensorrt_batched: bool = False,
-        enable_trhinking: bool = True,
+        enable_thinking: bool = True,
     ) -> None:
         """
          Creates instance of the RankListwiseOSLLM class, an extension of RankLLM designed for performing listwise ranking of passages using a specified language model. Advanced configurations are supported such as GPU acceleration, variable passage handling, and custom system messages for generating prompts.
