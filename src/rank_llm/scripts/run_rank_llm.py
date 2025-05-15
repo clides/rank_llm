@@ -42,13 +42,6 @@ def main(args):
     use_alpha = args.use_alpha
     sglang_batched = args.sglang_batched
     tensorrt_batched = args.tensorrt_batched
-    
-    if torch.cuda.is_available():
-        torch.cuda.set_device(args.gpu_id)
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
-        device = "cuda"
-    else:
-        device = "cpu"
 
     _ = retrieve_and_rerank(
         model_path=model_path,
@@ -203,12 +196,6 @@ if __name__ == "__main__":
         "--use_alpha",
         action="store_true",
         help="whether to use alphabetical identifers instead of numerical. Recommended when use_logits is True",
-    )
-    parser.add_argument(
-        "--gpu_id",
-        type=int,
-        default=0,  # Default to GPU 0 if not specified
-        help="ID of the GPU to use (e.g., 0, 1, 2, etc.)",
     )
     infer_backend_group.add_argument(
         "--sglang_batched",

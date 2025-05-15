@@ -54,6 +54,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         use_alpha: bool = False,
         sglang_batched: bool = False,
         tensorrt_batched: bool = False,
+        enable_thinking: bool = True,
     ) -> None:
         """
          Creates instance of the RankListwiseOSLLM class, an extension of RankLLM designed for performing listwise ranking of passages using a specified language model. Advanced configurations are supported such as GPU acceleration, variable passage handling, and custom system messages for generating prompts.
@@ -109,6 +110,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         self._output_token_estimate = None
         self._use_logits = use_logits
         self._num_gpus = num_gpus
+        self._enable_thinking = enable_thinking
 
         if num_few_shot_examples > 0:
             if not few_shot_file:
@@ -166,7 +168,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                         gpu_memory_utilization=0.90,
                         ignore_patterns=ignore_patterns,
                     )
-                    self._tokenizer = self._llm.get_tokenizer()
                 else:
                     self._llm = LLM(
                         model,
@@ -277,9 +278,25 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                 outputs = self._llm.generate(prompts, sampling_params=params)
                 arr = [self._get_logits_single_digit(output) for output in outputs]
                 return [(s, len(s)) for s, __ in arr]
-            else:
+                    
+            if self._enable_thinking:
                 sampling_params = SamplingParams(
                     temperature=0.0,
+                    max_tokens=self.num_output_tokens(current_window_size),
+                    min_tokens=self.num_output_tokens(current_window_size),
+                )
+                outputs = self._llm.generate(prompts, sampling_params)
+                return [
+                    (output.outputs[0].text, len(output.outputs[0].token_ids))
+                    for output in outputs
+                ]
+            else:
+                sampling_params = SamplingParams(
+                    temperature=0.7,
+                    top_p=0.8,
+                    top_k=20,
+                    min_p=0,
+                    repetition_penalty=1.1,
                     max_tokens=self.num_output_tokens(current_window_size),
                     min_tokens=self.num_output_tokens(current_window_size),
                 )
