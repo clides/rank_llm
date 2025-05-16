@@ -54,7 +54,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         use_alpha: bool = False,
         sglang_batched: bool = False,
         tensorrt_batched: bool = False,
-        enable_thinking: bool = True,
     ) -> None:
         """
          Creates instance of the RankListwiseOSLLM class, an extension of RankLLM designed for performing listwise ranking of passages using a specified language model. Advanced configurations are supported such as GPU acceleration, variable passage handling, and custom system messages for generating prompts.
@@ -279,27 +278,13 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                 arr = [self._get_logits_single_digit(output) for output in outputs]
                 return [(s, len(s)) for s, __ in arr]
                     
-            if self._enable_thinking:
+            else:
                 sampling_params = SamplingParams(
                     temperature=0.0,
                     max_tokens=self.num_output_tokens(current_window_size),
                     min_tokens=self.num_output_tokens(current_window_size),
                 )
                 outputs = self._llm.generate(prompts, sampling_params)
-                return [
-                    (output.outputs[0].text, len(output.outputs[0].token_ids))
-                    for output in outputs
-                ]
-            else:
-                sampling_params = SamplingParams(
-                    temperature=0.7,
-                    top_p=0.8,
-                    top_k=20,
-                    min_p=0,
-                    max_tokens=self.num_output_tokens(current_window_size),
-                    min_tokens=self.num_output_tokens(current_window_size),
-                )
-                outputs = self._llm.generate(prompts, sampling_params, chat_template_kwargs={"enable_thinking": False})
                 return [
                     (output.outputs[0].text, len(output.outputs[0].token_ids))
                     for output in outputs
