@@ -155,7 +155,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     ignore_patterns = []
                     
                 if os.getenv("HF_HOME") == None:
-                    os.environ["HF_HOME"] = "/store2/scratch/llms/model_cache"
+                    os.environ["HF_HOME"] = "/store3/scratch/d6guo/testing/llms/cache"
                 if "rank_zephyr" in model or "qwen" in model.lower():
                     self._llm = LLM(
                         model,
