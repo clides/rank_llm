@@ -351,7 +351,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
 
         _output_token_estimate = len(self._tokenizer.encode(token_str)) - 1
         
-        _output_token_estimate = int(_output_token_estimate * 3)
+        _output_token_estimate = int(_output_token_estimate * 7)
 
         if (
             self._output_token_estimate is None
