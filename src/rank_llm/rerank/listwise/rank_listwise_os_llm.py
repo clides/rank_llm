@@ -109,7 +109,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         self._output_token_estimate = None
         self._use_logits = use_logits
         self._num_gpus = num_gpus
-        self._enable_thinking = enable_thinking
 
         if num_few_shot_examples > 0:
             if not few_shot_file:
