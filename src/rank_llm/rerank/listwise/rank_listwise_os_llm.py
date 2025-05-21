@@ -283,7 +283,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     top_p=0.8,
                     top_k=20,
                     min_p=0,
-                    repetition_penalty=1.1,
+                    repetition_penalty=1.5,
                     skip_special_tokens=True,
                     spaces_between_special_tokens=False,
                     max_tokens=self.num_output_tokens(current_window_size),
@@ -357,7 +357,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
 
         _output_token_estimate = len(self._tokenizer.encode(token_str)) - 1
         
-        _output_token_estimate = int(_output_token_estimate * 40)
+        _output_token_estimate = int(_output_token_estimate * 30)
 
         if (
             self._output_token_estimate is None
