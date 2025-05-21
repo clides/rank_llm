@@ -279,7 +279,13 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     
             else:
                 sampling_params = SamplingParams(
-                    temperature=0.0,
+                    temperature=0.7,
+                    top_p=0.8,
+                    top_k=20,
+                    min_p=0,
+                    repetition_penalty=1.1,
+                    skip_special_tokens=True,
+                    spaces_between_special_tokens=False,
                     max_tokens=self.num_output_tokens(current_window_size),
                     min_tokens=self.num_output_tokens(current_window_size),
                 )
