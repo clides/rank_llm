@@ -40,6 +40,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
     def __init__(
         self,
         model: str,
+        hf_home: str,
         name: str = "",
         context_size: int = 4096,
         prompt_mode: PromptMode = PromptMode.RANK_GPT,
@@ -109,6 +110,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         self._output_token_estimate = None
         self._use_logits = use_logits
         self._num_gpus = num_gpus
+        self._hf_home = HF_HOME
 
         if num_few_shot_examples > 0:
             if not few_shot_file:
@@ -155,7 +157,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     ignore_patterns = []
                     
                 if os.getenv("HF_HOME") == None:
-                    os.environ["HF_HOME"] = "/store2/scratch/llms/model_cache"
+                    os.environ["HF_HOME"] = self._hf_home
                 if "rank_zephyr" in model or "qwen" in model.lower():
                     self._llm = LLM(
                         model,

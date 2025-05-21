@@ -289,6 +289,7 @@ class Reranker:
                 tensorrt_batched,
                 use_logits,
                 use_alpha,
+                hf_home
             ] = extract_kwargs(keys_and_defaults, **kwargs)
 
             model_coordinator = RankListwiseOSLLM(
@@ -303,6 +304,7 @@ class Reranker:
                 num_few_shot_examples=num_few_shot_examples,
                 few_shot_file=few_shot_file,
                 device=device,
+                hf_home=hf_home,
                 num_gpus=num_gpus,
                 variable_passages=variable_passages,
                 window_size=window_size,
