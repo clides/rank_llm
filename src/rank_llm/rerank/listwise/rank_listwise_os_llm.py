@@ -283,7 +283,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     top_p=0.8,
                     top_k=20,
                     min_p=0,
-                    repetition_penalty=1.5,
+                    repetition_penalty=1.1,
                     skip_special_tokens=True,
                     spaces_between_special_tokens=False,
                     max_tokens=self.num_output_tokens(current_window_size),
