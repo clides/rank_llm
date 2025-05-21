@@ -195,6 +195,7 @@ if __name__ == "__main__":
         "--hf_home",
         type=str,
         default=default_hf_home,
+        required=False,
         help=f"the hugging face home directory to save and load stored models (default: {default_hf_home})"
     )
     infer_backend_group = parser.add_mutually_exclusive_group()

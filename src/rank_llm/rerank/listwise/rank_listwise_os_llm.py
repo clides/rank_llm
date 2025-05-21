@@ -40,7 +40,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
     def __init__(
         self,
         model: str,
-        hf_home: str,
+        hf_home: Optional[str] = None,
         name: str = "",
         context_size: int = 4096,
         prompt_mode: PromptMode = PromptMode.RANK_GPT,
@@ -110,7 +110,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         self._output_token_estimate = None
         self._use_logits = use_logits
         self._num_gpus = num_gpus
-        self._hf_home = HF_HOME
+        self._hf_home = hf_home
 
         if num_few_shot_examples > 0:
             if not few_shot_file:
@@ -156,12 +156,10 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                 else:
                     ignore_patterns = []
                     
-                if os.getenv("HF_HOME") == None:
-                    os.environ["HF_HOME"] = self._hf_home
                 if "rank_zephyr" in model or "qwen" in model.lower():
                     self._llm = LLM(
                         model,
-                        download_dir=os.getenv("HF_HOME") + "/hub",
+                        download_dir=self._hf_home + "/hub",
                         enforce_eager=False,
                         max_logprobs=30,
                         tensor_parallel_size=num_gpus,
