@@ -1,11 +1,11 @@
 import copy
+import json
 import logging
 import random
 import re
-import json
 from abc import ABC
 from datetime import datetime
-from typing import Any, Dict, List, Tuple, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from ftfy import fix_text
 from tqdm import tqdm
@@ -361,14 +361,17 @@ class ListwiseRankLLM(RankLLM, ABC):
         return (cost, input_token_count + output_token_count)
 
     def _clean_response(self, response: str) -> str:
+        if "</think>" in response:
+            answer_start_index = response.find("</think>") + len("</think>")
+            response = response[answer_start_index:]
         new_response = ""
-        
+
         supersub_script_map = str.maketrans(
-                "⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉①②③④⑤⑥⑦⑧⑨❶❷❸❹❺❻❼❽❾０１２３４５６７８９🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉",
-                "0123456789012345678912345678912345678901234567890123456789"
-            )
+            "⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉①②③④⑤⑥⑦⑧⑨❶❷❸❹❺❻❼❽❾０１２３４５６７８９🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉",
+            "0123456789012345678912345678912345678901234567890123456789",
+        )
         response = response.translate(supersub_script_map)
-        
+
         if self._use_alpha:
             for c in response:
                 if not c.isalpha():
@@ -466,7 +469,7 @@ class ListwiseRankLLM(RankLLM, ABC):
         # For Japanese should cut by character: content = content[:int(max_length)]
         content = " ".join(content.split()[: int(max_length)])
         return self._replace_number(content)
-        
+
     def _load_few_shot_examples(self, file_path: str):
         try:
             with open(file_path, "r") as json_file:
@@ -474,8 +477,10 @@ class ListwiseRankLLM(RankLLM, ABC):
         except FileNotFoundError:
             raise ValueError(f"Few-shot examples file not found: {file_path}")
         except json.JSONDecodeError:
-            raise ValueError(f"Invalid JSON format in few-shot examples file: {file_path}")
-    
+            raise ValueError(
+                f"Invalid JSON format in few-shot examples file: {file_path}"
+            )
+
     def _add_few_shot_examples(self, conv):
         for _ in range(min(self._num_few_shot_examples, len(self._examples))):
             ex = random.choice(self._examples)
@@ -488,10 +493,11 @@ class ListwiseRankLLM(RankLLM, ABC):
 
     def _add_few_shot_examples_messages(self, messages):
         if self._num_few_shot_examples > 0 and hasattr(self, "_examples"):
-            
-            for ex in self._examples[:min(self._num_few_shot_examples, len(self._examples))]:
+            for ex in self._examples[
+                : min(self._num_few_shot_examples, len(self._examples))
+            ]:
                 for turn in ex["conversations"]:
                     messages.append({"role": turn["role"], "content": turn["value"]})
             return messages
-            
+
         return messages
