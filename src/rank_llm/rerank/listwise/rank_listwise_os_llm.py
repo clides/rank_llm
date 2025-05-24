@@ -288,7 +288,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     repetition_penalty=1.1,
                     skip_special_tokens=True,
                     spaces_between_special_tokens=False,
-                    max_tokens=10000,
+                    max_tokens=30000,
                     min_tokens=self.num_output_tokens(current_window_size),
                 )
                 outputs = self._llm.generate(prompts, sampling_params)
