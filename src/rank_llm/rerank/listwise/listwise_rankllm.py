@@ -362,10 +362,11 @@ class ListwiseRankLLM(RankLLM, ABC):
 
     def _clean_response(self, response: str) -> str:
         if "</think>" in response:
-            answer_start_index = response.find("</think>") + len("</think>")
-            response = response[answer_start_index:]
-        new_response = ""
+            response = response.split("</think>")[-1].strip()
 
+        response = response.split("\n")[-1].strip()
+
+        new_response = ""
         supersub_script_map = str.maketrans(
             "⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉①②③④⑤⑥⑦⑧⑨❶❷❸❹❺❻❼❽❾０１２３４５６７８９🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉",
             "0123456789012345678912345678912345678901234567890123456789",
