@@ -4,6 +4,9 @@ import sys
 
 import torch
 
+default_hf_home = os.path.join(os.getcwd(), "cache", "llms")
+os.makedirs(default_hf_home, exist_ok=True)
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 parent = os.path.dirname(SCRIPT_DIR)
 parent = os.path.dirname(parent)
@@ -42,6 +45,7 @@ def main(args):
     use_alpha = args.use_alpha
     sglang_batched = args.sglang_batched
     tensorrt_batched = args.tensorrt_batched
+    hf_home = args.hf_home
 
     _ = retrieve_and_rerank(
         model_path=model_path,
@@ -70,6 +74,7 @@ def main(args):
         use_alpha=use_alpha,
         sglang_batched=sglang_batched,
         tensorrt_batched=tensorrt_batched,
+        hf_home=hf_home,
     )
 
 
@@ -154,7 +159,7 @@ if __name__ == "__main__":
         type=str,
         required=False,
         default=None,
-        help="path to JSONL file containing few-shot examples."
+        help="path to JSONL file containing few-shot examples.",
     )
     parser.add_argument(
         "--variable_passages",
@@ -185,6 +190,13 @@ if __name__ == "__main__":
         type=str,
         default="You are RankLLM, an intelligent assistant that can rank passages based on their relevancy to the query.",
         help="the system message used in prompts",
+    )
+    parser.add_argument(
+        "--hf_home",
+        type=str,
+        default=default_hf_home,
+        required=False,
+        help=f"the hugging face home directory to save and load stored models (default: {default_hf_home})",
     )
     infer_backend_group = parser.add_mutually_exclusive_group()
     parser.add_argument(
