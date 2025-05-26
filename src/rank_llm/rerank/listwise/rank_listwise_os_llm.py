@@ -183,30 +183,16 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                         self._tokenizer,
                         "chat_template",
                         """{% if messages[0]['role'] == 'system' %}
-                        {% set loop_messages = messages[1:] %}
-                        {% set system_message = messages[0]['content'] %}
-                        {% else %}
-                        {% set loop_messages = messages %}
-                        {% set system_message = false %}
+                        {{ '### System:\n' + messages[0]['content'] + '\n' }}
                         {% endif %}
-                        {% for message in loop_messages %}
-                        {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}
-                        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}
-                        {% endif %}
-                        {% if loop.index0 == 0 and system_message != false %}
-                        {% set content = 'SYSTEM: ' + system_message + '\nUSER: ' + message['content'] %}
-                        {% else %}
+                        {% for message in messages %}
                         {% if message['role'] == 'user' %}
-                        {% set content = 'USER: ' + message['content'] %}
-                        {% else %}
-                        {% set content = 'ASSISTANT: ' + message['content'] + '</s>' %}
+                        {{ '### User:\n' + message['content'] + '\n' }}
+                        {% elif message['role'] == 'assistant' %}
+                        {{ '### Assistant:\n' + message['content'] + '\n' }}
                         {% endif %}
-                        {% endif %}
-                        {{ content.strip() }}
                         {% endfor %}
-                        {% if add_generation_prompt %}
-                        {{ 'ASSISTANT: ' }}
-                        {% endif %}""",
+                        {{ '### Assistant:\n' if add_generation_prompt }}""",
                     )
 
     def rerank_batch(
