@@ -1,5 +1,4 @@
 import logging
-import os
 import random
 import unicodedata
 from concurrent.futures import ThreadPoolExecutor
@@ -39,7 +38,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
     def __init__(
         self,
         model: str,
-        hf_home: Optional[str] = "cache/llms",
+        hf_home: str = "cache/llms",
         name: str = "",
         context_size: int = 4096,
         prompt_mode: PromptMode = PromptMode.RANK_GPT,
@@ -170,7 +169,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                 else:
                     self._llm = LLM(
                         model,
-                        download_dir=os.getenv("HF_HOME"),
+                        download_dir=self._hf_home + "/hub",
                         enforce_eager=False,
                         max_logprobs=30,
                         tensor_parallel_size=num_gpus,
@@ -178,6 +177,24 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                         ignore_patterns=ignore_patterns,
                     )
                 self._tokenizer = self._llm.get_tokenizer()
+
+                if "rank_vicuna" in model:
+                    setattr(
+                        self._tokenizer,
+                        "chat_template",
+                        """
+                {{ bos_token }}
+                {% for message in messages %}
+                  {% if message['role'] == 'system' %}
+                    <<SYS>>\\n{{ message['content'].strip() }}\\n<</SYS>>\\n
+                  {% elif message['role'] == 'user' %}
+                    [INST] {{ message['content'].strip() }} [/INST]
+                  {% elif message['role'] == 'assistant' %}
+                    {{ message['content'].strip() }}
+                  {% endif %}
+                {% endfor %}
+                    """.strip(),
+                    )
 
     def rerank_batch(
         self,
