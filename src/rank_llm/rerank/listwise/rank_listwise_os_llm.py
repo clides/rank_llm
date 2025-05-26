@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 import random
@@ -7,6 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Dict, List, Optional, Tuple
 
 import torch
+import vllm
 from ftfy import fix_text
 from tqdm import tqdm
 
@@ -15,7 +15,6 @@ from rank_llm.rerank import PromptMode
 
 from .listwise_rankllm import ListwiseRankLLM
 
-import vllm
 try:
     from vllm import LLM, SamplingParams
 except:
@@ -40,7 +39,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
     def __init__(
         self,
         model: str,
-        hf_home: str,
+        hf_home: Optional[str] = "cache/llms",
         name: str = "",
         context_size: int = 4096,
         prompt_mode: PromptMode = PromptMode.RANK_GPT,
@@ -68,7 +67,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
          - num_few_shot_examples (int, optional): Number of few-shot learning examples to include in the prompt, allowing for
          the integration of example-based learning to improve model performance. Defaults to 0, indicating no few-shot examples
          by default.
-         - few_shot_file (str, optional): Path to JSONL file containing few-shot examples. Required if num_few_shot_examples > 0. 
+         - few_shot_file (str, optional): Path to JSONL file containing few-shot examples. Required if num_few_shot_examples > 0.
          File should contain one JSON object per line with "conversations" field containing prompt/response pairs.
          - device (str, optional): Specifies the device for model computation ('cuda' for GPU or 'cpu'). Defaults to 'cuda'.
          - num_gpus (int, optional): Number of GPUs to use for model loading and inference. Defaults to 1.
@@ -114,16 +113,18 @@ class RankListwiseOSLLM(ListwiseRankLLM):
 
         if num_few_shot_examples > 0:
             if not few_shot_file:
-                raise ValueError("few_shot_examples_file must be provided when num_few_shot_examples > 0")
+                raise ValueError(
+                    "few_shot_examples_file must be provided when num_few_shot_examples > 0"
+                )
             self._load_few_shot_examples(few_shot_file)
-            
+
         if self._device == "cuda":
             assert torch.cuda.is_available() and torch.cuda.device_count() >= num_gpus
         if prompt_mode != PromptMode.RANK_GPT:
             raise ValueError(
                 f"Unsupported prompt mode: {prompt_mode}. The only prompt mode currently supported is a slight variation of {PromptMode.RANK_GPT} prompt."
             )
-            
+
         if sglang_batched:
             if Engine is None:
                 raise ImportError(
@@ -155,7 +156,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     ignore_patterns = ["*consolidated*"]
                 else:
                     ignore_patterns = []
-                    
+
                 if "rank_zephyr" in model or "qwen" in model.lower():
                     self._llm = LLM(
                         model,
@@ -261,13 +262,15 @@ class RankListwiseOSLLM(ListwiseRankLLM):
             raise ImportError(
                 "Please install rank-llm with `pip install rank-llm[vllm]` to use batch inference."
             )
-        
+
         if current_window_size is None:
             current_window_size = self._window_size
 
         if isinstance(self._llm, LLM):
             logger.info(f"VLLM Generating!")
-            logger.info(f"Using {self._num_gpus} GPUs: {torch.cuda.device_count()} available.")
+            logger.info(
+                f"Using {self._num_gpus} GPUs: {torch.cuda.device_count()} available."
+            )
 
             if self._use_logits:
                 params = SamplingParams(
@@ -276,7 +279,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                 outputs = self._llm.generate(prompts, sampling_params=params)
                 arr = [self._get_logits_single_digit(output) for output in outputs]
                 return [(s, len(s)) for s, __ in arr]
-                    
+
             else:
                 sampling_params = SamplingParams(
                     temperature=0.0,
@@ -369,7 +372,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         else:
             example_ordering = "[2] > [1]" if self._variable_passages else "[4] > [2]"
         return f"Search Query: {query}.\nRank the {num} passages above based on their relevance to the search query. All the passages should be included and listed using identifiers, in descending order of relevance. The output format should be [] > [], e.g., {example_ordering}, Answer concisely and directly and only respond with the ranking results, do not say any word or explain."
-        
+
     def create_prompt(
         self, result: Result, rank_start: int, rank_end: int
     ) -> Tuple[str, int]:
@@ -377,13 +380,13 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         query = self._replace_number(query)
         num = len(result.candidates[rank_start:rank_end])
         max_length = 300 * (20 / (rank_end - rank_start))
-        
+
         while True:
             messages = list()
             if self._system_message:
-                messages.append({"role": "system", "content": self._system_message})                
+                messages.append({"role": "system", "content": self._system_message})
             messages = self._add_few_shot_examples_messages(messages)
-            
+
             prefix = self._add_prefix_prompt(query, num)
             rank = 0
             input_context = f"{prefix}\n"
@@ -398,7 +401,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
 
             input_context += self._add_post_prompt(query, num)
             messages.append({"role": "user", "content": input_context})
-            
+
             prompt = self._tokenizer.apply_chat_template(
                 messages, tokenize=False, add_generation_prompt=True
             )

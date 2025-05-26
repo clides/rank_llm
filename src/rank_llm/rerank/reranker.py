@@ -274,6 +274,7 @@ class Reranker:
                 ("tensorrt_batched", False),
                 ("use_logits", False),
                 ("use_alpha", False),
+                ("hf_home", "cache/llms"),
             ]
             [
                 context_size,
@@ -289,7 +290,7 @@ class Reranker:
                 tensorrt_batched,
                 use_logits,
                 use_alpha,
-                hf_home
+                hf_home,
             ] = extract_kwargs(keys_and_defaults, **kwargs)
 
             model_coordinator = RankListwiseOSLLM(
@@ -330,9 +331,14 @@ class Reranker:
                 ("device", "cuda"),
                 ("batch_size", 64),
             ]
-            [prompt_mode, context_size, num_few_shot_examples, few_shot_file, device, batch_size] = extract_kwargs(
-                keys_and_defaults, **kwargs
-            )
+            [
+                prompt_mode,
+                context_size,
+                num_few_shot_examples,
+                few_shot_file,
+                device,
+                batch_size,
+            ] = extract_kwargs(keys_and_defaults, **kwargs)
 
             model_coordinator = MonoT5(
                 model=(
