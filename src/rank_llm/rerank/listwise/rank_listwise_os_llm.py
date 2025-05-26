@@ -182,18 +182,31 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                     setattr(
                         self._tokenizer,
                         "chat_template",
-                        """
-                {{ bos_token }}
-                {% for message in messages %}
-                  {% if message['role'] == 'system' %}
-                    <<SYS>>\\n{{ message['content'].strip() }}\\n<</SYS>>\\n
-                  {% elif message['role'] == 'user' %}
-                    [INST] {{ message['content'].strip() }} [/INST]
-                  {% elif message['role'] == 'assistant' %}
-                    {{ message['content'].strip() }}
-                  {% endif %}
-                {% endfor %}
-                    """.strip(),
+                        """{% if messages[0]['role'] == 'system' %}
+                        {% set loop_messages = messages[1:] %}
+                        {% set system_message = messages[0]['content'] %}
+                        {% else %}
+                        {% set loop_messages = messages %}
+                        {% set system_message = false %}
+                        {% endif %}
+                        {% for message in loop_messages %}
+                        {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}
+                        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}
+                        {% endif %}
+                        {% if loop.index0 == 0 and system_message != false %}
+                        {% set content = 'SYSTEM: ' + system_message + '\nUSER: ' + message['content'] %}
+                        {% else %}
+                        {% if message['role'] == 'user' %}
+                        {% set content = 'USER: ' + message['content'] %}
+                        {% else %}
+                        {% set content = 'ASSISTANT: ' + message['content'] + '</s>' %}
+                        {% endif %}
+                        {% endif %}
+                        {{ content.strip() }}
+                        {% endfor %}
+                        {% if add_generation_prompt %}
+                        {{ 'ASSISTANT: ' }}
+                        {% endif %}""",
                     )
 
     def rerank_batch(
