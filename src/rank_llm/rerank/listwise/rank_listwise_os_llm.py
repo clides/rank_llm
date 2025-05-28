@@ -1,4 +1,5 @@
 import logging
+import os
 import random
 import unicodedata
 from concurrent.futures import ThreadPoolExecutor
@@ -38,7 +39,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
     def __init__(
         self,
         model: str,
-        hf_home: str,
         name: str = "",
         context_size: int = 4096,
         prompt_mode: PromptMode = PromptMode.RANK_GPT,
@@ -108,7 +108,6 @@ class RankListwiseOSLLM(ListwiseRankLLM):
         self._output_token_estimate = None
         self._use_logits = use_logits
         self._num_gpus = num_gpus
-        self._hf_home = hf_home
 
         if num_few_shot_examples > 0:
             if not few_shot_file:
@@ -159,7 +158,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                 if "rank_zephyr" in model or "qwen" in model.lower():
                     self._llm = LLM(
                         model,
-                        download_dir=self._hf_home + "/hub",
+                        download_dir=os.getenv("HF_HOME"),
                         enforce_eager=False,
                         max_logprobs=30,
                         tensor_parallel_size=num_gpus,
@@ -169,7 +168,7 @@ class RankListwiseOSLLM(ListwiseRankLLM):
                 else:
                     self._llm = LLM(
                         model,
-                        download_dir=self._hf_home + "/hub",
+                        download_dir=os.getenv("HF_HOME"),
                         enforce_eager=False,
                         max_logprobs=30,
                         tensor_parallel_size=num_gpus,
