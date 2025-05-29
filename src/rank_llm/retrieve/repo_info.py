@@ -1,5 +1,5 @@
 HITS_INFO = {
-    "retrieve_results_mrtydi-bn_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-bn_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-bn task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-bn_top100.jsonl"
@@ -8,7 +8,7 @@ HITS_INFO = {
         "size (bytes)": 29654299,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-th_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-th_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-th task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-th_top100.jsonl"
@@ -17,7 +17,7 @@ HITS_INFO = {
         "size (bytes)": 85027395,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-fi_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-fi_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-fi task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-fi_top100.jsonl"
@@ -26,7 +26,7 @@ HITS_INFO = {
         "size (bytes)": 62363700,
         "downloaded": False,
     },
-    "retrieve_results_msmarco-v2.1-doc-segmented.bm25.rag24.researchy-dev_top100.jsonl": {
+    "BM25/retrieve_results_msmarco-v2.1-doc-segmented.bm25.rag24.researchy-dev_top100.jsonl": {
         "description": "Top-100 BM25 Results for the msmarco-v2.1-doc-segmented.bm25.rag24.researchy-dev task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_msmarco-v2.1-doc-segmented.bm25.rag24.researchy-dev_top100.jsonl"
@@ -35,7 +35,7 @@ HITS_INFO = {
         "size (bytes)": 141212740,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-wordpress_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-wordpress_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-wordpress task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-wordpress_top100.jsonl"
@@ -44,7 +44,7 @@ HITS_INFO = {
         "size (bytes)": 107076109,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-webmasters_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-webmasters_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-webmasters task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-webmasters_top100.jsonl"
@@ -53,7 +53,7 @@ HITS_INFO = {
         "size (bytes)": 58123597,
         "downloaded": False,
     },
-    "retrieve_results_nfc_top100.jsonl": {
+    "BM25/retrieve_results_nfc_top100.jsonl": {
         "description": "Top-100 BM25 Results for the nfc task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_nfc_top100.jsonl"
@@ -62,7 +62,7 @@ HITS_INFO = {
         "size (bytes)": 41107514,
         "downloaded": False,
     },
-    "retrieve_results_touche_top100.jsonl": {
+    "BM25/retrieve_results_touche_top100.jsonl": {
         "description": "Top-100 BM25 Results for the touche task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_touche_top100.jsonl"
@@ -71,7 +71,7 @@ HITS_INFO = {
         "size (bytes)": 20357605,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-gaming_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-gaming_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-gaming task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-gaming_top100.jsonl"
@@ -80,7 +80,7 @@ HITS_INFO = {
         "size (bytes)": 122178091,
         "downloaded": False,
     },
-    "retrieve_results_climate-fever_top100.jsonl": {
+    "BM25/retrieve_results_climate-fever_top100.jsonl": {
         "description": "Top-100 BM25 Results for the climate-fever task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_climate-fever_top100.jsonl"
@@ -89,7 +89,7 @@ HITS_INFO = {
         "size (bytes)": 267885684,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-ru_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-ru_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-ru task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-ru_top100.jsonl"
@@ -98,7 +98,7 @@ HITS_INFO = {
         "size (bytes)": 174101743,
         "downloaded": False,
     },
-    "retrieve_results_dl19_top100.jsonl": {
+    "BM25/retrieve_results_dl19_top100.jsonl": {
         "description": "Top-100 BM25 Results for the dl19 task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_dl19_top100.jsonl"
@@ -107,7 +107,7 @@ HITS_INFO = {
         "size (bytes)": 2000369,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-sw_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-sw_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-sw task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-sw_top100.jsonl"
@@ -116,7 +116,7 @@ HITS_INFO = {
         "size (bytes)": 29085994,
         "downloaded": False,
     },
-    "retrieve_results_fiqa_top100.jsonl": {
+    "BM25/retrieve_results_fiqa_top100.jsonl": {
         "description": "Top-100 BM25 Results for the fiqa task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_fiqa_top100.jsonl"
@@ -125,7 +125,7 @@ HITS_INFO = {
         "size (bytes)": 117475891,
         "downloaded": False,
     },
-    "retrieve_results_bioasq_top100.jsonl": {
+    "BM25/retrieve_results_bioasq_top100.jsonl": {
         "description": "Top-100 BM25 Results for the bioasq task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_bioasq_top100.jsonl"
@@ -134,7 +134,7 @@ HITS_INFO = {
         "size (bytes)": 103944754,
         "downloaded": False,
     },
-    "retrieve_results_covid_top100.jsonl": {
+    "BM25/retrieve_results_covid_top100.jsonl": {
         "description": "Top-100 BM25 Results for the covid task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_covid_top100.jsonl"
@@ -143,7 +143,7 @@ HITS_INFO = {
         "size (bytes)": 8779956,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-ja_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-ja_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-ja task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-ja_top100.jsonl"
@@ -152,7 +152,7 @@ HITS_INFO = {
         "size (bytes)": 92917724,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-en_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-en_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-en task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-en_top100.jsonl"
@@ -161,7 +161,7 @@ HITS_INFO = {
         "size (bytes)": 57002215,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-mathematica_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-mathematica_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-mathematica task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-mathematica_top100.jsonl"
@@ -170,7 +170,7 @@ HITS_INFO = {
         "size (bytes)": 142684830,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-programmers_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-programmers_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-programmers task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-programmers_top100.jsonl"
@@ -179,7 +179,7 @@ HITS_INFO = {
         "size (bytes)": 149649753,
         "downloaded": False,
     },
-    "retrieve_results_dl22_top100.jsonl": {
+    "BM25/retrieve_results_dl22_top100.jsonl": {
         "description": "Top-100 BM25 Results for the dl22 task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_dl22_top100.jsonl"
@@ -188,7 +188,7 @@ HITS_INFO = {
         "size (bytes)": 3021942,
         "downloaded": False,
     },
-    "retrieve_results_signal_top100.jsonl": {
+    "BM25/retrieve_results_signal_top100.jsonl": {
         "description": "Top-100 BM25 Results for the signal task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_signal_top100.jsonl"
@@ -197,7 +197,7 @@ HITS_INFO = {
         "size (bytes)": 2223388,
         "downloaded": False,
     },
-    "retrieve_results_arguana_top100.jsonl": {
+    "BM25/retrieve_results_arguana_top100.jsonl": {
         "description": "Top-100 BM25 Results for the arguana task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_arguana_top100.jsonl"
@@ -206,7 +206,7 @@ HITS_INFO = {
         "size (bytes)": 266144931,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-english_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-english_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-english task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-english_top100.jsonl"
@@ -215,7 +215,7 @@ HITS_INFO = {
         "size (bytes)": 128587175,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-android_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-android_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-android task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-android_top100.jsonl"
@@ -224,7 +224,7 @@ HITS_INFO = {
         "size (bytes)": 68682044,
         "downloaded": False,
     },
-    "retrieve_results_noveleval_top100.jsonl": {
+    "BM25/retrieve_results_noveleval_top100.jsonl": {
         "description": "Top-100 BM25 Results for the noveleval task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_noveleval_top100.jsonl"
@@ -233,7 +233,7 @@ HITS_INFO = {
         "size (bytes)": 417977,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-ko_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-ko_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-ko task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-ko_top100.jsonl"
@@ -242,7 +242,7 @@ HITS_INFO = {
         "size (bytes)": 32125840,
         "downloaded": False,
     },
-    "retrieve_results_scidocs_top100.jsonl": {
+    "BM25/retrieve_results_scidocs_top100.jsonl": {
         "description": "Top-100 BM25 Results for the scidocs task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_scidocs_top100.jsonl"
@@ -251,7 +251,7 @@ HITS_INFO = {
         "size (bytes)": 838406407,
         "downloaded": False,
     },
-    "retrieve_results_robust04_top100.jsonl": {
+    "BM25/retrieve_results_robust04_top100.jsonl": {
         "description": "Top-100 BM25 Results for the robust04 task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_robust04_top100.jsonl"
@@ -260,7 +260,7 @@ HITS_INFO = {
         "size (bytes)": 246610765,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-physics_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-physics_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-physics task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-physics_top100.jsonl"
@@ -269,7 +269,7 @@ HITS_INFO = {
         "size (bytes)": 145999977,
         "downloaded": False,
     },
-    "retrieve_results_dl23_top100.jsonl": {
+    "BM25/retrieve_results_dl23_top100.jsonl": {
         "description": "Top-100 BM25 Results for the dl23 task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_dl23_top100.jsonl"
@@ -278,7 +278,7 @@ HITS_INFO = {
         "size (bytes)": 4450110,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-te_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-te_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-te task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-te_top100.jsonl"
@@ -287,7 +287,7 @@ HITS_INFO = {
         "size (bytes)": 175158316,
         "downloaded": False,
     },
-    "retrieve_results_nq_top100.jsonl": {
+    "BM25/retrieve_results_nq_top100.jsonl": {
         "description": "Top-100 BM25 Results for the nq task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_nq_top100.jsonl"
@@ -296,7 +296,7 @@ HITS_INFO = {
         "size (bytes)": 294361164,
         "downloaded": False,
     },
-    "retrieve_results_dl21_top100.jsonl": {
+    "BM25/retrieve_results_dl21_top100.jsonl": {
         "description": "Top-100 BM25 Results for the dl21 task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_dl21_top100.jsonl"
@@ -305,7 +305,7 @@ HITS_INFO = {
         "size (bytes)": 2140373,
         "downloaded": False,
     },
-    "retrieve_results_scifact_top100.jsonl": {
+    "BM25/retrieve_results_scifact_top100.jsonl": {
         "description": "Top-100 BM25 Results for the scifact task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_scifact_top100.jsonl"
@@ -314,7 +314,7 @@ HITS_INFO = {
         "size (bytes)": 54195908,
         "downloaded": False,
     },
-    "retrieve_results_msmarco-v2.1-doc-segmented.bm25.rag24.raggy-dev_top100.jsonl": {
+    "BM25/retrieve_results_msmarco-v2.1-doc-segmented.bm25.rag24.raggy-dev_top100.jsonl": {
         "description": "Top-100 BM25 Results for the msmarco-v2.1-doc-segmented.bm25.rag24.raggy-dev task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_msmarco-v2.1-doc-segmented.bm25.rag24.raggy-dev_top100.jsonl"
@@ -323,7 +323,7 @@ HITS_INFO = {
         "size (bytes)": 26911601,
         "downloaded": False,
     },
-    "retrieve_results_quora_top100.jsonl": {
+    "BM25/retrieve_results_quora_top100.jsonl": {
         "description": "Top-100 BM25 Results for the quora task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_quora_top100.jsonl"
@@ -332,7 +332,7 @@ HITS_INFO = {
         "size (bytes)": 181487926,
         "downloaded": False,
     },
-    "retrieve_results_dl20_top100.jsonl": {
+    "BM25/retrieve_results_dl20_top100.jsonl": {
         "description": "Top-100 BM25 Results for the dl20 task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_dl20_top100.jsonl"
@@ -341,7 +341,7 @@ HITS_INFO = {
         "size (bytes)": 2528494,
         "downloaded": False,
     },
-    "retrieve_results_fever_top100.jsonl": {
+    "BM25/retrieve_results_fever_top100.jsonl": {
         "description": "Top-100 BM25 Results for the fever task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_fever_top100.jsonl"
@@ -350,7 +350,7 @@ HITS_INFO = {
         "size (bytes)": 733246613,
         "downloaded": False,
     },
-    "retrieve_results_dbpedia_top100.jsonl": {
+    "BM25/retrieve_results_dbpedia_top100.jsonl": {
         "description": "Top-100 BM25 Results for the dbpedia task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_dbpedia_top100.jsonl"
@@ -359,7 +359,7 @@ HITS_INFO = {
         "size (bytes)": 24647913,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-gis_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-gis_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-gis task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-gis_top100.jsonl"
@@ -368,7 +368,7 @@ HITS_INFO = {
         "size (bytes)": 138960373,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-stats_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-stats_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-stats task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-stats_top100.jsonl"
@@ -377,7 +377,7 @@ HITS_INFO = {
         "size (bytes)": 107215152,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-tex_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-tex_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-tex task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-tex_top100.jsonl"
@@ -386,7 +386,7 @@ HITS_INFO = {
         "size (bytes)": 640157648,
         "downloaded": False,
     },
-    "retrieve_results_news_top100.jsonl": {
+    "BM25/retrieve_results_news_top100.jsonl": {
         "description": "Top-100 BM25 Results for the news task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_news_top100.jsonl"
@@ -395,7 +395,7 @@ HITS_INFO = {
         "size (bytes)": 41110970,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-ar_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-ar_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-ar task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-ar_top100.jsonl"
@@ -404,7 +404,7 @@ HITS_INFO = {
         "size (bytes)": 293847179,
         "downloaded": False,
     },
-    "retrieve_results_mrtydi-id_top100.jsonl": {
+    "BM25/retrieve_results_mrtydi-id_top100.jsonl": {
         "description": "Top-100 BM25 Results for the mrtydi-id task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_mrtydi-id_top100.jsonl"
@@ -413,7 +413,7 @@ HITS_INFO = {
         "size (bytes)": 51144356,
         "downloaded": False,
     },
-    "retrieve_results_cqadupstack-unix_top100.jsonl": {
+    "BM25/retrieve_results_cqadupstack-unix_top100.jsonl": {
         "description": "Top-100 BM25 Results for the cqadupstack-unix task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_cqadupstack-unix_top100.jsonl"
@@ -422,7 +422,7 @@ HITS_INFO = {
         "size (bytes)": 179463636,
         "downloaded": False,
     },
-    "retrieve_results_hotpotqa_top100.jsonl": {
+    "BM25/retrieve_results_hotpotqa_top100.jsonl": {
         "description": "Top-100 BM25 Results for the hotpotqa task. (Cached JSONL format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/retrieve_results_hotpotqa_top100.jsonl"
@@ -431,7 +431,7 @@ HITS_INFO = {
         "size (bytes)": 464251585,
         "downloaded": False,
     },
-    "trec_results_signal_top100.txt": {
+    "BM25/trec_results_signal_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_signal task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_signal_top100.txt"
@@ -440,7 +440,7 @@ HITS_INFO = {
         "size (bytes)": 863553,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-gis_top100.txt": {
+    "BM25/trec_results_cqadupstack-gis_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-gis task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-gis_top100.txt"
@@ -449,7 +449,7 @@ HITS_INFO = {
         "size (bytes)": 3984051,
         "downloaded": False,
     },
-    "trec_results_covid_top100.txt": {
+    "BM25/trec_results_covid_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_covid task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_covid_top100.txt"
@@ -458,7 +458,7 @@ HITS_INFO = {
         "size (bytes)": 204370,
         "downloaded": False,
     },
-    "trec_results_dl20_top100.txt": {
+    "BM25/trec_results_dl20_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_dl20 task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_dl20_top100.txt"
@@ -467,7 +467,7 @@ HITS_INFO = {
         "size (bytes)": 240316,
         "downloaded": False,
     },
-    "trec_results_nq_top100.txt": {
+    "BM25/trec_results_nq_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_nq task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_nq_top100.txt"
@@ -476,7 +476,7 @@ HITS_INFO = {
         "size (bytes)": 18018629,
         "downloaded": False,
     },
-    "trec_results_mrtydi-ru_top100.txt": {
+    "BM25/trec_results_mrtydi-ru_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-ru task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-ru_top100.txt"
@@ -485,7 +485,7 @@ HITS_INFO = {
         "size (bytes)": 3828494,
         "downloaded": False,
     },
-    "trec_results_fever_top100.txt": {
+    "BM25/trec_results_fever_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_fever task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_fever_top100.txt"
@@ -494,7 +494,7 @@ HITS_INFO = {
         "size (bytes)": 41233134,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-english_top100.txt": {
+    "BM25/trec_results_cqadupstack-english_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-english task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-english_top100.txt"
@@ -503,7 +503,7 @@ HITS_INFO = {
         "size (bytes)": 7164087,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-webmasters_top100.txt": {
+    "BM25/trec_results_cqadupstack-webmasters_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-webmasters task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-webmasters_top100.txt"
@@ -512,7 +512,7 @@ HITS_INFO = {
         "size (bytes)": 2260397,
         "downloaded": False,
     },
-    "trec_results_msmarco-v2.1-doc-segmented.bm25.rag24.raggy-dev_top100.txt": {
+    "BM25/trec_results_msmarco-v2.1-doc-segmented.bm25.rag24.raggy-dev_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_msmarco-v2.1-doc-segmented.bm25.rag24.raggy-dev task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_msmarco-v2.1-doc-segmented.bm25.rag24.raggy-dev_top100.txt"
@@ -521,7 +521,7 @@ HITS_INFO = {
         "size (bytes)": 910820,
         "downloaded": False,
     },
-    "trec_results_arguana_top100.txt": {
+    "BM25/trec_results_arguana_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_arguana task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_arguana_top100.txt"
@@ -530,7 +530,7 @@ HITS_INFO = {
         "size (bytes)": 14292057,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-wordpress_top100.txt": {
+    "BM25/trec_results_cqadupstack-wordpress_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-wordpress task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-wordpress_top100.txt"
@@ -539,7 +539,7 @@ HITS_INFO = {
         "size (bytes)": 2469227,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-stats_top100.txt": {
+    "BM25/trec_results_cqadupstack-stats_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-stats task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-stats_top100.txt"
@@ -548,7 +548,7 @@ HITS_INFO = {
         "size (bytes)": 2935440,
         "downloaded": False,
     },
-    "trec_results_dl22_top100.txt": {
+    "BM25/trec_results_dl22_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_dl22 task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_dl22_top100.txt"
@@ -557,7 +557,7 @@ HITS_INFO = {
         "size (bytes)": 503425,
         "downloaded": False,
     },
-    "trec_results_mrtydi-ar_top100.txt": {
+    "BM25/trec_results_mrtydi-ar_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-ar task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-ar_top100.txt"
@@ -566,7 +566,7 @@ HITS_INFO = {
         "size (bytes)": 5005804,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-gaming_top100.txt": {
+    "BM25/trec_results_cqadupstack-gaming_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-gaming task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-gaming_top100.txt"
@@ -575,7 +575,7 @@ HITS_INFO = {
         "size (bytes)": 7289194,
         "downloaded": False,
     },
-    "trec_results_mrtydi-bn_top100.txt": {
+    "BM25/trec_results_mrtydi-bn_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-bn task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-bn_top100.txt"
@@ -584,7 +584,7 @@ HITS_INFO = {
         "size (bytes)": 519641,
         "downloaded": False,
     },
-    "trec_results_climate-fever_top100.txt": {
+    "BM25/trec_results_climate-fever_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_climate-fever task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_climate-fever_top100.txt"
@@ -593,7 +593,7 @@ HITS_INFO = {
         "size (bytes)": 9388594,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-android_top100.txt": {
+    "BM25/trec_results_cqadupstack-android_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-android task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-android_top100.txt"
@@ -602,7 +602,7 @@ HITS_INFO = {
         "size (bytes)": 3123254,
         "downloaded": False,
     },
-    "trec_results_hotpotqa_top100.txt": {
+    "BM25/trec_results_hotpotqa_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_hotpotqa task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_hotpotqa_top100.txt"
@@ -611,7 +611,7 @@ HITS_INFO = {
         "size (bytes)": 49529939,
         "downloaded": False,
     },
-    "trec_results_mrtydi-en_top100.txt": {
+    "BM25/trec_results_mrtydi-en_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-en task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-en_top100.txt"
@@ -620,7 +620,7 @@ HITS_INFO = {
         "size (bytes)": 3623890,
         "downloaded": False,
     },
-    "trec_results_mrtydi-fi_top100.txt": {
+    "BM25/trec_results_mrtydi-fi_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-fi task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-fi_top100.txt"
@@ -629,7 +629,7 @@ HITS_INFO = {
         "size (bytes)": 4667037,
         "downloaded": False,
     },
-    "trec_results_mrtydi-ja_top100.txt": {
+    "BM25/trec_results_mrtydi-ja_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-ja task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-ja_top100.txt"
@@ -638,7 +638,7 @@ HITS_INFO = {
         "size (bytes)": 3441734,
         "downloaded": False,
     },
-    "trec_results_msmarco-v2.1-doc-segmented.bm25.rag24.researchy-dev_top100.txt": {
+    "BM25/trec_results_msmarco-v2.1-doc-segmented.bm25.rag24.researchy-dev_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_msmarco-v2.1-doc-segmented.bm25.rag24.researchy-dev task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_msmarco-v2.1-doc-segmented.bm25.rag24.researchy-dev_top100.txt"
@@ -647,7 +647,7 @@ HITS_INFO = {
         "size (bytes)": 4496144,
         "downloaded": False,
     },
-    "trec_results_nfc_top100.txt": {
+    "BM25/trec_results_nfc_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_nfc task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_nfc_top100.txt"
@@ -656,7 +656,7 @@ HITS_INFO = {
         "size (bytes)": 1166597,
         "downloaded": False,
     },
-    "trec_results_mrtydi-te_top100.txt": {
+    "BM25/trec_results_mrtydi-te_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-te task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-te_top100.txt"
@@ -665,7 +665,7 @@ HITS_INFO = {
         "size (bytes)": 2886733,
         "downloaded": False,
     },
-    "trec_results_robust04_top100.txt": {
+    "BM25/trec_results_robust04_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_robust04 task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_robust04_top100.txt"
@@ -674,7 +674,7 @@ HITS_INFO = {
         "size (bytes)": 1260112,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-tex_top100.txt": {
+    "BM25/trec_results_cqadupstack-tex_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-tex task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-tex_top100.txt"
@@ -683,7 +683,7 @@ HITS_INFO = {
         "size (bytes)": 13319779,
         "downloaded": False,
     },
-    "trec_results_scidocs_top100.txt": {
+    "BM25/trec_results_scidocs_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_scidocs task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_scidocs_top100.txt"
@@ -692,7 +692,7 @@ HITS_INFO = {
         "size (bytes)": 11489211,
         "downloaded": False,
     },
-    "trec_results_dl21_top100.txt": {
+    "BM25/trec_results_dl21_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_dl21 task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_dl21_top100.txt"
@@ -701,7 +701,7 @@ HITS_INFO = {
         "size (bytes)": 347951,
         "downloaded": False,
     },
-    "trec_results_mrtydi-th_top100.txt": {
+    "BM25/trec_results_mrtydi-th_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-th task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-th_top100.txt"
@@ -710,7 +710,7 @@ HITS_INFO = {
         "size (bytes)": 1578228,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-physics_top100.txt": {
+    "BM25/trec_results_cqadupstack-physics_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-physics task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-physics_top100.txt"
@@ -719,7 +719,7 @@ HITS_INFO = {
         "size (bytes)": 4703810,
         "downloaded": False,
     },
-    "trec_results_scifact_top100.txt": {
+    "BM25/trec_results_scifact_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_scifact task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_scifact_top100.txt"
@@ -728,7 +728,7 @@ HITS_INFO = {
         "size (bytes)": 1375231,
         "downloaded": False,
     },
-    "trec_results_mrtydi-ko_top100.txt": {
+    "BM25/trec_results_mrtydi-ko_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-ko task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-ko_top100.txt"
@@ -737,7 +737,7 @@ HITS_INFO = {
         "size (bytes)": 1429961,
         "downloaded": False,
     },
-    "trec_results_mrtydi-id_top100.txt": {
+    "BM25/trec_results_mrtydi-id_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-id task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-id_top100.txt"
@@ -746,7 +746,7 @@ HITS_INFO = {
         "size (bytes)": 3828870,
         "downloaded": False,
     },
-    "trec_results_bioasq_top100.txt": {
+    "BM25/trec_results_bioasq_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_bioasq task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_bioasq_top100.txt"
@@ -755,7 +755,7 @@ HITS_INFO = {
         "size (bytes)": 3361230,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-unix_top100.txt": {
+    "BM25/trec_results_cqadupstack-unix_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-unix task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-unix_top100.txt"
@@ -764,7 +764,7 @@ HITS_INFO = {
         "size (bytes)": 4870984,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-programmers_top100.txt": {
+    "BM25/trec_results_cqadupstack-programmers_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-programmers task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-programmers_top100.txt"
@@ -773,7 +773,7 @@ HITS_INFO = {
         "size (bytes)": 4055299,
         "downloaded": False,
     },
-    "trec_results_quora_top100.txt": {
+    "BM25/trec_results_quora_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_quora task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_quora_top100.txt"
@@ -782,7 +782,7 @@ HITS_INFO = {
         "size (bytes)": 46536063,
         "downloaded": False,
     },
-    "trec_results_touche_top100.txt": {
+    "BM25/trec_results_touche_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_touche task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_touche_top100.txt"
@@ -791,7 +791,7 @@ HITS_INFO = {
         "size (bytes)": 371893,
         "downloaded": False,
     },
-    "trec_results_fiqa_top100.txt": {
+    "BM25/trec_results_fiqa_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_fiqa task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_fiqa_top100.txt"
@@ -800,7 +800,7 @@ HITS_INFO = {
         "size (bytes)": 2900218,
         "downloaded": False,
     },
-    "trec_results_news_top100.txt": {
+    "BM25/trec_results_news_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_news task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_news_top100.txt"
@@ -809,7 +809,7 @@ HITS_INFO = {
         "size (bytes)": 390316,
         "downloaded": False,
     },
-    "trec_results_dl23_top100.txt": {
+    "BM25/trec_results_dl23_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_dl23 task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_dl23_top100.txt"
@@ -818,7 +818,7 @@ HITS_INFO = {
         "size (bytes)": 576485,
         "downloaded": False,
     },
-    "trec_results_mrtydi-sw_top100.txt": {
+    "BM25/trec_results_mrtydi-sw_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_mrtydi-sw task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_mrtydi-sw_top100.txt"
@@ -827,7 +827,7 @@ HITS_INFO = {
         "size (bytes)": 3089950,
         "downloaded": False,
     },
-    "trec_results_cqadupstack-mathematica_top100.txt": {
+    "BM25/trec_results_cqadupstack-mathematica_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_cqadupstack-mathematica task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_cqadupstack-mathematica_top100.txt"
@@ -836,7 +836,7 @@ HITS_INFO = {
         "size (bytes)": 3584611,
         "downloaded": False,
     },
-    "trec_results_dbpedia_top100.txt": {
+    "BM25/trec_results_dbpedia_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_dbpedia task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_dbpedia_top100.txt"
@@ -845,7 +845,7 @@ HITS_INFO = {
         "size (bytes)": 3229132,
         "downloaded": False,
     },
-    "trec_results_dl19_top100.txt": {
+    "BM25/trec_results_dl19_top100.txt": {
         "description": "Top-100 BM25 Results for the trec_results_dl19 task. (TREC format)",
         "urls": [
             "https://huggingface.co/datasets/RankLLMData/RankLLM_Data/resolve/main/retrieve_results/BM25/trec_results_dl19_top100.txt"
