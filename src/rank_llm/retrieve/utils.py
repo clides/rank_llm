@@ -115,11 +115,11 @@ def download_cached_hits(
     repo_id = "RankLLMData/RankLLM_Data"
     hf_filename = f"retrieve_results/{query_name}"
     cache_dir = get_cache_home()
-    simplified_path = f"{cache_dir}/{query_name}"
 
-    if not force_download and os.path.exists(simplified_path):
-        print(f"Loading cached results from {simplified_path}")
-        return simplified_path
+    cache_path = f"{cache_dir}/{query_name}"
+    if not force_download and os.path.exists(cache_path):
+        print(f"Loading cached results from {cache_path}")
+        return cache_path
 
     file_path = hf_hub_download(
         repo_id=repo_id,
@@ -128,6 +128,6 @@ def download_cached_hits(
         local_dir=cache_dir,
         force_download=force_download,
     )
-    print(f"Downloaded cached results to {file_path}")
+    print(f"Downloaded cached results to {cache_dir}/{file_path}")
 
     return file_path
