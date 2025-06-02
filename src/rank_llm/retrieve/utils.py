@@ -125,12 +125,9 @@ def download_cached_hits(
         )
 
         if cached_path is not None and os.path.exists(cached_path):
-            print(
-                f"Loading cached results for {query_name} from {cache_dir}/{query_name}"
-            )
+            print(f"Loading cached results for {query_name} from {cached_path}")
             return cached_path
 
-    print(f"Trying to download cached results for {query_name} from HuggingFace")
     file_path = hf_hub_download(
         repo_id=repo_id,
         repo_type="dataset",
@@ -138,5 +135,6 @@ def download_cached_hits(
         cache_dir=cache_dir,
         force_download=force_download,
     )
+    print(f"Downloaded cached results for {query_name} to {file_path} from HuggingFace")
 
     return file_path
