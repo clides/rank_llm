@@ -151,6 +151,7 @@ class Retriever:
             retrieval_method_name,
             file_pattern.format(dataset_name=dataset_name, k="*"),
         )
+        print(f"glob pattern: {glob_pattern}")
 
         matching_files = glob.glob(glob_pattern)
 
