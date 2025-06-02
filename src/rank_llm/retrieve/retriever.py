@@ -175,52 +175,50 @@ class Retriever:
             ValueError: If the retrieval mode is invalid or the result format is not as expected.
         """
         retrieve_results_dirname = get_cache_home()
+
         if self._retrieval_mode == RetrievalMode.DATASET:
-            try:  # try to get cached results from HF first
-                if 1 <= k <= 100:
-                    query_name = f"{self._retrieval_method.name}/retrieve_results_{self._dataset}_top100.jsonl"
-                else:
-                    query_name = f"{self._retrieval_method.name}/retrieve_results_{self._dataset}_top1000.jsonl"
-
-                cached_file = download_cached_hits(query_name)
-
-                with open(cached_file, "r") as f:
-                    retrieved_results = [
-                        from_dict(data_class=Request, data=json.loads(line))
-                        for i, line in enumerate(f)
-                        if i < k
-                    ]
-            except Exception as hf_error:
-                max_k_file, max_k = self._get_file_with_highest_k(
-                    retrieve_results_dirname, self._retrieval_method.name, self._dataset
-                )
-                if (
-                    max_k_file is not None and max_k >= k
-                ):  # fall back #1 to check if existing local file already exists
-                    print(f"Reusing existing file: {max_k_file} for top {k} reranking.")
-
+            max_k_file, max_k = self._get_file_with_highest_k(
+                retrieve_results_dirname, self._retrieval_method.name, self._dataset
+            )
+            if (
+                max_k_file and max_k >= k
+            ):  # try to see if retrieving from local file works
+                try:
                     with open(max_k_file, "r") as f:
-                        retrieved_results = [
+                        results = [
                             from_dict(data_class=Request, data=json.loads(line))
                             for i, line in enumerate(f)
                             if i < k
                         ]
-                else:  # fall back #2 to use Pyserini to perform retrieval on the spot
-                    try:
-                        print(
-                            f"Using Pyserini to retrieve with dataset {self._dataset}"
-                        )
-                        pyserini = PyseriniRetriever(
-                            self._dataset, self._retrieval_method
-                        )
-                        retrieved_results = pyserini.retrieve_and_store(k=k)
-                    except Exception as pyserini_error:
-                        raise ValueError(
-                            f"Failed to retrieve results after multiple attempts.\n"
-                            f"HuggingFace error: {str(hf_error)}\n"
-                            f"Pyserini error: {str(pyserini_error)}"
-                        )
+                        print(f"Successfully loaded from local cache: {max_k_file}")
+                        return results
+                except Exception as local_error:
+                    print(f"Local file invalid, attempting HF download: {local_error}")
+            try:  # fallback #1: download from HF repo
+                query_name = f"{self._retrieval_method.name}/retrieve_results_{self._dataset}_top{100 if k <= 100 else 1000}.jsonl"
+                cached_file = download_cached_hits(query_name)
 
+                with open(cached_file, "r") as f:
+                    results = [
+                        from_dict(data_class=Request, data=json.loads(line))
+                        for i, line in enumerate(f)
+                        if i < k
+                    ]
+                    print(f"Successfully downloaded from HF: {cached_file}")
+                    return results
+            except Exception as hf_error:
+                print(f"HF download failed, using Pyserini: {hf_error}")
+            try:  # fallback #2: retrieve on the spot with pyserini
+                print(f"Using Pyserini to retrieve with dataset {self._dataset}")
+                pyserini = PyseriniRetriever(self._dataset, self._retrieval_method)
+                return pyserini.retrieve_and_store(k=k)
+            except Exception as pyserini_error:
+                raise ValueError(
+                    f"All retrieval methods failed:\n"
+                    f"Local file: {max_k_file or 'None'}\n"
+                    f"HF error: {hf_error}\n"
+                    f"Pyserini error: {pyserini_error}"
+                )
         elif self._retrieval_mode == RetrievalMode.CUSTOM:
             candidates_file = Path(
                 f"{retrieve_results_dirname}/{self._retrieval_method.name}/retrieve_results_{self._dataset}_top{k}.json"
