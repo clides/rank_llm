@@ -118,15 +118,14 @@ def download_cached_hits(
     simplified_path = f"{cache_dir}/{query_name}"
 
     if not force_download and os.path.exists(simplified_path):
-        print(f"Loading existing results from {simplified_path}")
+        print(f"Loading cached results from {simplified_path}")
         return simplified_path
 
     file_path = hf_hub_download(
         repo_id=repo_id,
         repo_type="dataset",
         filename=hf_filename,
-        local_dir=os.path.dirname(simplified_path),
-        local_dir_use_symlinks=False,
+        local_dir=os.path.dirname(cache_dir),
         force_download=force_download,
     )
     print(f"Downloaded cached results to {file_path}")
