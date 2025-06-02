@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from urllib.request import urlretrieve
 
-from huggingface_hub import hf_hub_download, try_to_load_from_cache
+from huggingface_hub import hf_hub_download
 from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
@@ -115,26 +115,20 @@ def download_cached_hits(
     repo_id = "RankLLMData/RankLLM_Data"
     hf_filename = f"retrieve_results/{query_name}"
     cache_dir = get_cache_home()
+    simplified_path = f"{cache_dir}/{query_name}"
 
-    if not force_download:
-        cached_path = try_to_load_from_cache(
-            repo_id=repo_id,
-            repo_type="dataset",
-            filename=hf_filename,
-            cache_dir=cache_dir,
-        )
-
-        if cached_path is not None and os.path.exists(cached_path):
-            print(f"Loading cached results for {query_name} from {cached_path}")
-            return cached_path
+    if not force_download and os.path.exists(simplified_path):
+        print(f"Loading existing results from {simplified_path}")
+        return simplified_path
 
     file_path = hf_hub_download(
         repo_id=repo_id,
         repo_type="dataset",
         filename=hf_filename,
-        cache_dir=cache_dir,
+        local_dir=os.path.dirname(simplified_path),
+        local_dir_use_symlinks=False,
         force_download=force_download,
     )
-    print(f"Downloaded cached results for {query_name} to {file_path} from HuggingFace")
+    print(f"Downloaded cached results to {file_path}")
 
     return file_path
