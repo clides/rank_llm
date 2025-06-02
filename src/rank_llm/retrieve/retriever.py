@@ -180,6 +180,7 @@ class Retriever:
             max_k_file, max_k = self._get_file_with_highest_k(
                 retrieve_results_dirname, self._retrieval_method.name, self._dataset
             )
+            print(f"max_k_file: {max_k_file}")
             if (
                 max_k_file and max_k >= k
             ):  # try to see if retrieving from local file works
@@ -204,7 +205,6 @@ class Retriever:
                         for i, line in enumerate(f)
                         if i < k
                     ]
-                    print(f"Successfully downloaded from HF: {cached_file}")
                     return results
             except Exception as hf_error:
                 print(f"HF download failed, using Pyserini: {hf_error}")
