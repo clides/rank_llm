@@ -6,7 +6,6 @@ from .service_retriever import ServiceRetriever
 from .topics_dict import TOPICS
 from .utils import (
     compute_md5,
-    download_and_unpack_hits,
     download_cached_hits,
     download_url,
 )
@@ -20,7 +19,6 @@ __all__ = [
     "ServiceRetriever",
     "Retriever",
     "RetrievalMode",
-    "download_and_unpack_hits",
     "download_cached_hits",
     "download_url",
     "compute_md5",

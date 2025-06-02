@@ -4,6 +4,8 @@ import os
 import re
 from urllib.error import HTTPError, URLError
 from urllib.request import urlretrieve
+from pathlib import Path
+from huggingface_hub import hf_hub_download, try_to_load_from_cache
 
 from tqdm import tqdm
 
@@ -91,81 +93,48 @@ def get_cache_home():
     custom_dir = os.environ.get("RANK_LLM_CACHE")
     if custom_dir is not None and custom_dir != "":
         print("custom")
+        Path(custom_dir).mkdir(exist_ok=True)
         return custom_dir
-    return os.path.expanduser(
-        os.path.join(f"~{os.path.sep}rank_llm", "retrieve_results")
+        
+    default_dir = "retrieve_results"
+    Path(default_dir).mkdir(exist_ok=True)
+    return default_dir
+
+
+def download_cached_hits(
+    query_name: str,
+    force_download: bool = False,
+) -> str:
+    """
+    Download stored retrieved_results from HuggingFace datasets repo.
+
+    Args:
+        query_name: query name (eg. "BM25/retrieve_results_arguana_top100.jsonl")
+        force_download: If True, ignores cache and re-downloads
+
+    Returns:
+        Local path to the downloaded file
+    """
+    repo_id = "RankLLMData/RankLLM_Data"
+    hf_filename = f"retrieve_results/{query_name}"
+    cache_dir = get_cache_home()
+
+    if not force_download:
+        cached_path = try_to_load_from_cache(
+            repo_id=repo_id,
+            repo_type="dataset",
+            filename=hf_filename,
+            cache_dir=cache_dir,
+        )
+        if cached_path is not None and os.path.exists(cached_path):
+            return cached_path
+
+    file_path = hf_hub_download(
+        repo_id=repo_id,
+        repo_type="dataset",
+        filename=hf_filename,
+        cache_dir=cache_dir,
+        force_download=force_download,
     )
 
-
-def download_and_unpack_hits(
-    url,
-    hits_directory="files",
-    local_filename=False,
-    force=False,
-    verbose=True,
-    prebuilt=False,
-    md5=None,
-):
-    # If caller does not specify local filename, figure it out from the download URL:
-    if not local_filename:
-        file_name = url.split("/")[-1]
-    else:
-        # Otherwise, use the specified local_filename:
-        file_name = local_filename
-
-    if prebuilt:
-        hits_directory = os.path.join(get_cache_home(), hits_directory)
-        file_path = os.path.join(hits_directory, f"{file_name}.{md5}")
-
-        if not os.path.exists(hits_directory):
-            os.makedirs(hits_directory)
-
-        local_file = os.path.join(hits_directory, file_name)
-    else:
-        local_file = os.path.join(hits_directory, file_name)
-        file_path = os.path.join(hits_directory, file_name)
-
-    # Check to see if file already exists, if so, simply return (quietly) unless force=True, in which case we remove
-    # file and download fresh copy.
-    if os.path.exists(file_path):
-        if not force:
-            if verbose:
-                print(f"{file_path} already exists, skipping download.")
-            return file_path
-        if verbose:
-            print(
-                f"{file_path} already exists, but force=True, removing {file_path} and fetching fresh copy..."
-            )
-        os.remove(file_path)
-
-    print(f"Downloading file at {url}...")
-    download_url(
-        url, hits_directory, local_filename=local_filename, verbose=False, md5=md5
-    )
-
-    # No need to extract for JSON and text files
-    if verbose:
-        print(f"File {local_file} has been downloaded to {file_path}.")
-    return local_file
-
-
-def download_cached_hits(query_name, force=False, verbose=True, mirror=None):
-    if query_name not in HITS_INFO:
-        print(f"query_name unrecognized {query_name}")
-        raise ValueError(f"Unrecognized query name {query_name}")
-    query_md5 = HITS_INFO[query_name]["md5"]
-    for url in HITS_INFO[query_name]["urls"]:
-        print(f"Trying to download cached retrieved hits at {url}...")
-        try:
-            hits_dir = query_name.rsplit("/", 2)[-2]
-            return download_and_unpack_hits(
-                url, hits_directory=hits_dir, prebuilt=True, md5=query_md5
-            )
-        except (HTTPError, URLError) as e:
-            print(
-                f"Unable to download cached retrieved hits at {url}, trying next URL..."
-            )
-    raise ValueError(f"Unable to download cached retrieved hits at any known URLs.")
-
-
-get_cache_home()
+    return file_path
