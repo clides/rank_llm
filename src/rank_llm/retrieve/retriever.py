@@ -177,6 +177,10 @@ class Retriever:
         """
         retrieve_results_dirname = get_cache_home()
 
+        local_error = None
+        hf_error = None
+        pyserini_error = None
+
         if self._retrieval_mode == RetrievalMode.DATASET:
             max_k_file, max_k = self._get_file_with_highest_k(
                 retrieve_results_dirname, self._retrieval_method.name, self._dataset
@@ -191,9 +195,12 @@ class Retriever:
                             for i, line in enumerate(f)
                             if i < k
                         ]
-                        print(f"Successfully loaded from local cache: {max_k_file}")
+                        print(
+                            f"Successfully loaded {max_k_file} to get top {k} candidate"
+                        )
                         return results
-                except Exception as local_error:
+                except Exception as e:
+                    local_error = e
                     print(f"Local file invalid, attempting HF download: {local_error}")
             try:  # fallback #1: download from HF repo
                 query_name = f"{self._retrieval_method.name}/retrieve_results_{self._dataset}_top{100 if k <= 100 else 1000}.jsonl"
@@ -206,16 +213,18 @@ class Retriever:
                         if i < k
                     ]
                     return results
-            except Exception as hf_error:
+            except Exception as e:
+                hf_error = e
                 print(f"HF download failed, using Pyserini: {hf_error}")
             try:  # fallback #2: retrieve on the spot with pyserini
                 print(f"Using Pyserini to retrieve with dataset {self._dataset}")
                 pyserini = PyseriniRetriever(self._dataset, self._retrieval_method)
                 return pyserini.retrieve_and_store(k=k)
-            except Exception as pyserini_error:
+            except Exception as e:
+                pyserini_error = e
                 raise ValueError(
                     f"All retrieval methods failed:\n"
-                    f"Local file: {max_k_file or 'None'}\n"
+                    f"Local file: {local_error}\n"
                     f"HF error: {hf_error}\n"
                     f"Pyserini error: {pyserini_error}"
                 )
