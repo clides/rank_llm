@@ -116,7 +116,7 @@ def download_cached_hits(
     hf_filename = f"retrieve_results/{query_name}"
     cache_dir = get_cache_home()
 
-    cache_path = f"{cache_dir}/{query_name}"
+    cache_path = f"{cache_dir}/{hf_filename}"
     if not force_download and os.path.exists(cache_path):
         print(f"Loading cached results from {cache_path}")
         return cache_path
