@@ -93,7 +93,7 @@ def get_cache_home():
         Path(custom_dir).mkdir(exist_ok=True)
         return custom_dir
 
-    default_dir = "retrieve_results"
+    default_dir = "."
     Path(default_dir).mkdir(exist_ok=True)
     return default_dir
 
