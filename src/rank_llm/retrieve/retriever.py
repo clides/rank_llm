@@ -1,6 +1,5 @@
 import glob
 import json
-from logging import raiseExceptions
 import os
 import re
 from enum import Enum
@@ -10,9 +9,9 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from dacite import from_dict
 
 from rank_llm.data import Request
-from rank_llm.retrieve.utils import compute_md5, download_cached_hits, get_cache_home
+from rank_llm.retrieve.utils import download_cached_hits, get_cache_home
 
-from . import HITS_INFO, PyseriniRetriever, RetrievalMethod
+from . import PyseriniRetriever, RetrievalMethod
 
 
 class RetrievalMode(Enum):
@@ -177,15 +176,14 @@ class Retriever:
         """
         retrieve_results_dirname = get_cache_home()
         if self._retrieval_mode == RetrievalMode.DATASET:
-            try: # try to get cached results from HF first
+            try:  # try to get cached results from HF first
                 if 1 <= k <= 100:
                     query_name = f"{self._retrieval_method.name}/retrieve_results_{self._dataset}_top100.jsonl"
                 else:
                     query_name = f"{self._retrieval_method.name}/retrieve_results_{self._dataset}_top1000.jsonl"
-                
-                print(f"Trying to download cached results for {self._dataset} from HuggingFace")
+
                 cached_file = download_cached_hits(query_name)
-                
+
                 with open(cached_file, "r") as f:
                     retrieved_results = [
                         from_dict(data_class=Request, data=json.loads(line))
@@ -196,7 +194,9 @@ class Retriever:
                 max_k_file, max_k = self._get_file_with_highest_k(
                     retrieve_results_dirname, self._retrieval_method.name, self._dataset
                 )
-                if max_k_file is not None and max_k >= k: # fall back #1 to check if existing local file already exists
+                if (
+                    max_k_file is not None and max_k >= k
+                ):  # fall back #1 to check if existing local file already exists
                     print(f"Reusing existing file: {max_k_file} for top {k} reranking.")
 
                     with open(max_k_file, "r") as f:
@@ -205,9 +205,11 @@ class Retriever:
                             for i, line in enumerate(f)
                             if i < k
                         ]
-                else: # fall back #2 to use Pyserini to perform retrieval on the spot
+                else:  # fall back #2 to use Pyserini to perform retrieval on the spot
                     try:
-                        print(f"Using Pyserini to retrieve with dataset {self._dataset}")
+                        print(
+                            f"Using Pyserini to retrieve with dataset {self._dataset}"
+                        )
                         pyserini = PyseriniRetriever(
                             self._dataset, self._retrieval_method
                         )
@@ -218,7 +220,7 @@ class Retriever:
                             f"HuggingFace error: {str(hf_error)}\n"
                             f"Pyserini error: {str(pyserini_error)}"
                         )
-                        
+
         elif self._retrieval_mode == RetrievalMode.CUSTOM:
             candidates_file = Path(
                 f"{retrieve_results_dirname}/{self._retrieval_method.name}/retrieve_results_{self._dataset}_top{k}.json"

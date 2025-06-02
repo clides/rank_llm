@@ -4,11 +4,7 @@ from .repo_info import HITS_INFO
 from .retriever import RetrievalMode, Retriever
 from .service_retriever import ServiceRetriever
 from .topics_dict import TOPICS
-from .utils import (
-    compute_md5,
-    download_cached_hits,
-    download_url,
-)
+from .utils import compute_md5, download_cached_hits, download_url
 
 __all__ = [
     "INDICES",

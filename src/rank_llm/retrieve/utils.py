@@ -2,14 +2,11 @@ import hashlib
 import logging
 import os
 import re
-from urllib.error import HTTPError, URLError
-from urllib.request import urlretrieve
 from pathlib import Path
+from urllib.request import urlretrieve
+
 from huggingface_hub import hf_hub_download, try_to_load_from_cache
-
 from tqdm import tqdm
-
-from rank_llm.retrieve.repo_info import HITS_INFO
 
 logger = logging.getLogger(__name__)
 
@@ -95,7 +92,7 @@ def get_cache_home():
         print("custom")
         Path(custom_dir).mkdir(exist_ok=True)
         return custom_dir
-        
+
     default_dir = "retrieve_results"
     Path(default_dir).mkdir(exist_ok=True)
     return default_dir
@@ -126,9 +123,11 @@ def download_cached_hits(
             filename=hf_filename,
             cache_dir=cache_dir,
         )
+        print(f"Loading cached results for {query_name} from {cache_dir}/{query_name}")
         if cached_path is not None and os.path.exists(cached_path):
             return cached_path
 
+    print(f"Trying to download cached results for {query_name} from HuggingFace")
     file_path = hf_hub_download(
         repo_id=repo_id,
         repo_type="dataset",
