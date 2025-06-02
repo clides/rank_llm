@@ -1,9 +1,6 @@
-import hashlib
 import logging
 import os
-import re
 from pathlib import Path
-from urllib.request import urlretrieve
 
 from huggingface_hub import hf_hub_download
 from tqdm import tqdm
@@ -25,65 +22,6 @@ class TqdmUpTo(tqdm):
         if tsize is not None:
             self.total = tsize
         self.update(b * bsize - self.n)  # will also set self.n = b * bsize
-
-
-# For large files, we need to compute MD5 block by block. See:
-# https://stackoverflow.com/questions/1131220/get-md5-hash-of-big-files-in-python
-def compute_md5(file, block_size=2**20):
-    m = hashlib.md5()
-    with open(file, "rb") as f:
-        while True:
-            buf = f.read(block_size)
-            if not buf:
-                break
-            m.update(buf)
-    return m.hexdigest()
-
-
-def download_url(
-    url, save_dir, local_filename=None, md5=None, force=False, verbose=True
-):
-    # If caller does not specify local filename, figure it out from the download URL:
-    if not local_filename:
-        filename = url.split("/")[-1]
-        filename = re.sub(
-            "\\?dl=1$", "", filename
-        )  # Remove the Dropbox 'force download' parameter
-    else:
-        # Otherwise, use the specified local_filename:
-        filename = local_filename
-
-    destination_path = os.path.join(save_dir, filename)
-
-    if verbose:
-        print(f"curr_path{os.getcwd()}")
-        print(f"Downloading {url} to {destination_path}...")
-
-    # Check to see if file already exists, if so, simply return (quietly) unless force=True, in which case we remove
-    # destination file and download fresh copy.
-    if os.path.exists(destination_path):
-        if verbose:
-            print(f"{destination_path} already exists!")
-        if not force:
-            if verbose:
-                print(f"Skipping download.")
-            return destination_path
-        if verbose:
-            print(f"force=True, removing {destination_path}; fetching fresh copy...")
-        os.remove(destination_path)
-
-    with TqdmUpTo(
-        unit="B", unit_scale=True, unit_divisor=1024, miniters=1, desc=filename
-    ) as t:
-        urlretrieve(url, filename=destination_path, reporthook=t.update_to)
-
-    if md5:
-        md5_computed = compute_md5(destination_path)
-        assert (
-            md5_computed == md5
-        ), f"{destination_path} does not match checksum! Expecting {md5} got {md5_computed}."
-
-    return destination_path
 
 
 def get_cache_home():
