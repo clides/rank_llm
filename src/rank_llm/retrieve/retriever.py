@@ -148,10 +148,10 @@ class Retriever:
         """
         glob_pattern = os.path.join(
             retrieve_results_dirname,
+            "retrieve_results",
             retrieval_method_name,
             file_pattern.format(dataset_name=dataset_name, k="*"),
         )
-        print(f"glob pattern: {glob_pattern}")
 
         matching_files = glob.glob(glob_pattern)
 
@@ -181,7 +181,6 @@ class Retriever:
             max_k_file, max_k = self._get_file_with_highest_k(
                 retrieve_results_dirname, self._retrieval_method.name, self._dataset
             )
-            print(f"max_k_file: {max_k_file}")
             if (
                 max_k_file and max_k >= k
             ):  # try to see if retrieving from local file works
