@@ -124,7 +124,7 @@ def download_cached_hits(
     file_path = hf_hub_download(
         repo_id=repo_id,
         repo_type="dataset",
-        filename=query_name,
+        filename=hf_filename,
         local_dir=cache_dir,
         force_download=force_download,
     )
