@@ -123,8 +123,11 @@ def download_cached_hits(
             filename=hf_filename,
             cache_dir=cache_dir,
         )
-        print(f"Loading cached results for {query_name} from {cache_dir}/{query_name}")
+
         if cached_path is not None and os.path.exists(cached_path):
+            print(
+                f"Loading cached results for {query_name} from {cache_dir}/{query_name}"
+            )
             return cached_path
 
     print(f"Trying to download cached results for {query_name} from HuggingFace")
