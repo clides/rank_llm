@@ -42,7 +42,7 @@ def main():
 
     print(f"Loading topics from {args.topics_file}...")
     topics = {
-        k: v["title"]
+        str(k): v["title"]
         for k, v in DefaultQueryIterator.from_topics(args.topics_file).topics.items()
     }
 
