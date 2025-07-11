@@ -1,5 +1,9 @@
 import copy
+import json
+import os
 from typing import Any, Dict, List, Optional, Union
+
+from dacite import from_dict
 
 from rank_llm.data import Query, Request
 from rank_llm.rerank import IdentityReranker, RankLLM, Reranker
@@ -194,11 +198,19 @@ def retrieve(
                     )
                 )
         else:
-            requests = Retriever.from_dataset_with_prebuilt_index(
-                dataset_name=dataset,
-                retrieval_method=retrieval_method,
-                k=top_k_retrieve,
-            )
+            # Check if the dataset is a file path
+            if isinstance(dataset, str) and os.path.exists(dataset):
+                with open(dataset, "r") as f:
+                    requests = [
+                        from_dict(data_class=Request, data=json.loads(line))
+                        for line in f
+                    ]
+            else:
+                requests = Retriever.from_dataset_with_prebuilt_index(
+                    dataset_name=dataset,
+                    retrieval_method=retrieval_method,
+                    k=top_k_retrieve,
+                )
     elif retrieval_mode == RetrievalMode.CUSTOM:
         keys_and_defaults = [
             ("index_path", None),
