@@ -66,6 +66,10 @@ def main():
                     content = (
                         content_json["title"].strip() + ". " + content_json["text"]
                     )
+                elif "title" in content_json and "segment" in content_json:
+                    content = (
+                        content_json["title"].strip() + ". " + content_json["segment"]
+                    )
                 elif "contents" in content_json:
                     content = content_json["contents"]
                 elif "passage" in content_json:
