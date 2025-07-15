@@ -10,7 +10,7 @@ parent = os.path.dirname(parent)
 sys.path.append(parent)
 
 from pyserini.index.lucene import LuceneIndexReader
-from pyserini.query_iterator import DefaultQueryIterator
+from pyserini.search import get_topics_with_reader
 from tqdm import tqdm
 
 from rank_llm.data import Candidate, DataWriter, Query, Request
@@ -41,10 +41,10 @@ def main():
     index_reader = LuceneIndexReader(args.index_path)
 
     print(f"Loading topics from {args.topics_file}...")
-    topics = {
-        k: v["title"]
-        for k, v in DefaultQueryIterator.from_topics(args.topics_file).topics.items()
-    }
+    topics_dict = get_topics_with_reader(
+        "io.anserini.search.topicreader.TsvStringTopicReader", args.topics_file
+    )
+    topics = {str(k): v["title"] for k, v in topics_dict.items()}
 
     print(f"Reading TREC run file from {args.trec_run_file}...")
     requests_map = defaultdict(list)
@@ -55,7 +55,28 @@ def main():
 
             try:
                 document = index_reader.doc(docid)
-                content = json.loads(document.raw())
+                if document is None:
+                    print(f"Warning: docid {docid} not found in index. Skipping.")
+                    continue
+
+                content_json = json.loads(document.raw())
+
+                # Robust content extraction logic
+                if "title" in content_json and "text" in content_json:
+                    content = (
+                        content_json["title"].strip() + ". " + content_json["text"]
+                    )
+                elif "contents" in content_json:
+                    content = content_json["contents"]
+                elif "passage" in content_json:
+                    content = content_json["passage"]
+                else:
+                    # Fallback to raw content if no known field is found
+                    content = document.raw()
+                    print(
+                        f"Warning: No specific content field found for docid {docid}. Using raw content."
+                    )
+
                 candidate = Candidate(docid=docid, score=float(score), doc=content)
                 requests_map[qid].append(candidate)
             except Exception as e:
